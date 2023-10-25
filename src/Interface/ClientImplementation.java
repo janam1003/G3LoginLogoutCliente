@@ -9,6 +9,6 @@ package Interface;
  *
  * @author Janam
  */
-public interface ClientImplementation {
+public class ClientImplementation {
     
 }
