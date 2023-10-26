@@ -21,7 +21,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label layoutX="101.0" layoutY="84.0" text="Welcome  to  G3  app  &quot;Name Surname&quot;" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="lblWelcome" layoutX="101.0" layoutY="84.0" text="Welcome  to  G3  app " textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Dubai Bold" size="23.0" />
                </font>
