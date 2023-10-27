@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Classes.User;
+import View.Generic.GenericController;
 import View.LogIn.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,27 +29,20 @@ import javafx.stage.Stage;
  *
  * @author 2dam
  */
-public class LoggedController {
+public class LoggedController extends GenericController{
 
 	@FXML
 	private Button btnLogOut1;
 	@FXML
 	private Label lblWelcome;
 
-	private Stage stage;
-	
-	protected void showErrorAlert(String errorMsg){
-        //Shows error dialog.
-        Alert alert=new Alert(Alert.AlertType.ERROR,errorMsg,ButtonType.OK);
-        alert.getDialogPane();
-        alert.showAndWait();
-        
-    }
 	/**
 	 * Initializes the controller class.
 	 */
 	public void initStage(Parent root, User user) {
 		try {
+			LOGGER.info("Initializing Logged stage.");
+
 			stage.setTitle("Logged");
 			stage.getIcons().add(new Image("/Resources/logo.png"));
 			stage.setScene(new Scene(root));
@@ -59,10 +53,6 @@ public class LoggedController {
 			// TODO: handle exception
 			this.showErrorAlert(e.getMessage());
 		}
-	}
-
-	public void setStage(Stage stage) {
-		this.stage = stage;
 	}
 
 	@FXML

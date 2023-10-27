@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import Classes.User;
 import Exceptions.IncorrectLoginException;
+import View.Generic.GenericController;
 import View.Logged.LoggedController;
 import View.SignUp.SignUpController;
 import javafx.event.ActionEvent;
@@ -35,9 +36,9 @@ import javafx.stage.WindowEvent;
 /**
  * FXML Controller class
  *
- * @author 2dam
+ * @author 
  */
-public class LoginController {
+public class LoginController extends GenericController {
 
     @FXML
     private TextField tfMail;
@@ -53,20 +54,8 @@ public class LoginController {
     private Label lblPassword;
     @FXML
     private FontAwesomeIcon btEye;
-
-	private Stage stage;
-
-	private String mailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
-	+ "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-
-
-	protected void showErrorAlert(String errorMsg){
-        //Shows error dialog.
-        Alert alert=new Alert(Alert.AlertType.ERROR,errorMsg,ButtonType.OK);
-        alert.getDialogPane();
-        alert.showAndWait();
-        
-    }
+	@FXML
+	private TextField tfPasswordReveal;
 
     @FXML
     private void handleLogInButtonAction(ActionEvent event) {
@@ -131,13 +120,16 @@ public class LoginController {
 		}
     }
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
+
+	@FXML
+	private void handleEyeButtonAction(ActionEvent event) {
+		showPassword(btEye, pfPassword, tfPasswordReveal);
 	}
 
 	public void initStage(Parent root) {
 		try {
-			//LOGGER.info("Initializing Login stage.");
+			LOGGER.info("Initializing Login stage.");
+
         	Scene scene = new Scene(root);
 
        		stage.setResizable(false);
@@ -151,6 +143,7 @@ public class LoginController {
 			btnLogIn.setDefaultButton(true);
 			//Quitamos para que tfMail no tenga el foco
 			//tfMail.setFocusTraversable(false); MEJOR O PEOR? PREGUNTAR
+			tfPasswordReveal.setVisible(false);
 
         	stage.show();
 
