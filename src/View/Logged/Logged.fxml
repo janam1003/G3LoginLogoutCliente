@@ -28,7 +28,7 @@
             </Label>
             <ImageView fitHeight="245.0" fitWidth="253.0" layoutX="385.0" layoutY="105.0">
                <image>
-                  <Image url="@logged.png" />
+                  <Image url="@../../Resources/logged.png" />
                </image>
             </ImageView>
          </children>
