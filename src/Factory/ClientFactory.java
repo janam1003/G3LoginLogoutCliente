@@ -1,7 +1,7 @@
 package Factory;
 
 import Classes.SigninSignup;
-import Interface.ClientImplementation;
+import Implementation.ClientImplementation;
 
 /**
  * The `ClientFactory` class is responsible for creating and providing instances

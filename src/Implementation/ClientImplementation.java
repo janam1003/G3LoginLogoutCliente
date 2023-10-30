@@ -1,4 +1,4 @@
-package Interface;
+package Implementation;
 
 import Classes.Message;
 import Classes.MessageType;

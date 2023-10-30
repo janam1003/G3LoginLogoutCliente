@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The ClientSocket class provides a client-side socket communication mechanism
@@ -71,7 +72,7 @@ public class ClientSocket {
         } catch (IOException | ClassNotFoundException e) {
 
             // Handle exceptions by logging the error
-            java.util.logging.Logger.getLogger(ClientSocket.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ClientSocket.class.getName()).log(Level.SEVERE, null, e);
 
         }
 
