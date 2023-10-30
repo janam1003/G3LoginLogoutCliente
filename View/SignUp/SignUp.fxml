@@ -19,14 +19,14 @@
          <children>
                 <ImageView fitHeight="348.0" fitWidth="323.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../signup.png" />
+                        <Image url="@../../Resources/signup.png" />
                     </image>
                 </ImageView>
          </children>
         </Pane>
-        <Pane layoutX="347.0" layoutY="15.0" prefHeight="571.0" prefWidth="420.0">
+        <Pane layoutX="346.0" layoutY="15.0" prefHeight="571.0" prefWidth="420.0">
             <children>
-                <Label ellipsisString="" prefHeight="45.0" prefWidth="200.0" text="Create Account" textFill="#3f61bf" wrapText="true">
+                <Label ellipsisString="" layoutY="-8.0" prefHeight="45.0" prefWidth="200.0" text="Create Account" textFill="#3f61bf" wrapText="true">
                     <font>
                         <Font size="22.0" />
                     </font>
@@ -79,7 +79,7 @@
                         <Font name="Verdana Pro Black" size="22.0" />
                     </font>
  
-                      </Button>
+                            </Button>
                 <TextField fx:id="tfZip" layoutY="190.0" prefHeight="40.0" prefWidth="200.0" promptText="Zip">
                     <font>
                         <Font size="18.0" />
@@ -89,7 +89,7 @@
                     </padding>
                 </TextField>
                 <FontAwesomeIcon fill="#3f61bf" glyphName="HOME" layoutX="10.0" layoutY="147.0" size="2em" text="" />
-                <TextField fx:id="tfNameSurname" layoutY="49.0" prefHeight="40.0" prefWidth="420.0" promptText="Name and Surname">
+                <TextField fx:id="tfNameSurname" layoutY="36.0" prefHeight="40.0" prefWidth="420.0" promptText="Name and Surname">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -97,33 +97,51 @@
                         <Insets left="40.0" right="10.0" />
                     </padding>
                 </TextField>
-            <Label fx:id="lblNameSurname" layoutX="-1.0" layoutY="100.0" />
-            <Label fx:id="lblUsername" layoutX="-1.0" layoutY="160.0" />
-            <Label fx:id="lblState" layoutX="220.0" layoutY="160.0" />
-            <Label fx:id="lblPhone" layoutX="-1.0" layoutY="220.0" />
-            <Label fx:id="lblStreet" layoutX="220.0" layoutY="220.0" />
-            <Label fx:id="lblEmail" layoutX="-1.0" layoutY="276.0" />
-            <Label fx:id="lblCity" layoutX="-1.0" layoutY="340.0" />
-            <Label fx:id="lblCountry" layoutX="220.0" layoutY="340.0" />
-            <Label fx:id="lblZip" layoutX="-1.0" layoutY="400.0" />
-            <Label fx:id="lblPassword" layoutX="220.0" layoutY="400.0" />
-            <Label fx:id="lblConfirmPassword" layoutX="2.0" layoutY="460.0" />
                 
-                      <FontAwesomeIcon fill="#3f61bf" glyphName="USER" layoutX="11.0" layoutY="77.0" size="2em" />
+                            <FontAwesomeIcon fill="#3f61bf" glyphName="USER" layoutX="11.0" layoutY="64.0" size="2em" />
                 <FontAwesomeIcon fill="#3f61bf" glyphName="PHONE" layoutX="229.0" layoutY="219.0" size="2em" text="" />
                 <FontAwesomeIcon fill="#3f61bf" glyphName="ENVELOPE" layoutX="9.0" layoutY="293.0" size="2em" text="" />
-                <FontAwesomeIcon fill="#3f61bf" glyphName="LOCK" layoutX="13.0" layoutY="436.0" size="2em" />
-                <FontAwesomeIcon fill="#3f61bf" glyphName="LOCK" layoutX="13.0" layoutY="366.0" size="2em" text="" />
                 <FontAwesomeIcon fill="#3f61bf" glyphName="FILE" layoutX="12.0" layoutY="220.0" size="2em" text="" wrappingWidth="18.857142738997936" />
-            <Button layoutX="374.0" layoutY="337.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="49.0" />
-            <Button layoutX="374.0" layoutY="408.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="49.0" />
-            <FontAwesomeIcon fx:id="faEye1" fill="#3f61bf" glyphName="EYE" layoutX="386.0" layoutY="366.0" size="2em" />
-            <FontAwesomeIcon fx:id="faEye2" fill="#3f61bf" glyphName="EYE" layoutX="386.0" layoutY="436.0" size="2em" />
+            <Button fx:id="btnEye1" layoutX="374.0" layoutY="337.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="49.0">
+               <graphic>
+                  <FontAwesomeIcon fx:id="faEye1" fill="#3f61bf" glyphName="EYE" size="2em" />
+               </graphic></Button>
+            <Button fx:id="btnEye2" layoutX="374.0" layoutY="408.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="49.0">
+               <graphic>
+                  <FontAwesomeIcon fx:id="faEye2" fill="#3f61bf" glyphName="EYE" size="2em" />
+               </graphic>
+            </Button>
             <Button fx:id="btnCancel" layoutX="9.0" layoutY="489.0" mnemonicParsing="false" onAction="#handleSignedUpButtonAction" prefHeight="39.0" prefWidth="112.0" style="-fx-background-color: #d9d9d9;" text="Cancel" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
+            <TextField fx:id="tfPasswordReveal" layoutY="337.0" prefHeight="40.0" prefWidth="375.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="tfConfirmPasswordReveal" layoutY="408.0" prefHeight="39.0" prefWidth="375.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+            </TextField>
+                <FontAwesomeIcon fill="#3f61bf" glyphName="LOCK" layoutX="13.0" layoutY="366.0" size="2em" text="" />
+                <FontAwesomeIcon fill="#3f61bf" glyphName="LOCK" layoutX="13.0" layoutY="436.0" size="2em" />
+            <Label fx:id="lblName" layoutX="6.0" layoutY="89.0" prefHeight="17.0" prefWidth="338.0" text="ERROR make sure that your name and surname are well written" textFill="RED" />
+            <Label fx:id="lblAddress" layoutX="7.0" layoutY="165.0" text="ERROR make sure that your Address is well written" textFill="RED" />
+            <Label fx:id="lblZip" layoutX="9.0" layoutY="229.0" prefHeight="39.0" prefWidth="200.0" text="ERROR make sure that &#10;your zip is well written&#10;" textFill="RED" />
+            <Label fx:id="lblPhone" layoutX="220.0" layoutY="229.0" prefHeight="39.0" prefWidth="152.0" text="ERROR make sure that &#10;your phone is well written" textFill="RED" />
+            <Label fx:id="lblEmail" layoutX="7.0" layoutY="313.0" text="ERROR make sure that your email is well written" textFill="RED" />
+            <Label fx:id="lblPassword" layoutX="6.0" layoutY="385.0" text="ERROR this password is not safe enough" textFill="RED" />
+            <Label fx:id="lblConfirmPassword" layoutX="6.0" layoutY="457.0" text="The password and the confirmation do not match" textFill="RED" />
+            <Label fx:id="lblExits" layoutX="6.0" layoutY="313.0" text="ERROR, that email already has an account " textFill="RED" />
             </children>
         </Pane>
     </children>

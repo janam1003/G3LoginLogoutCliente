@@ -56,10 +56,14 @@ public class LoginController extends GenericController {
     private FontAwesomeIcon btEye;
 	@FXML
 	private TextField tfPasswordReveal;
+        
+        
 
     @FXML
     private void handleLogInButtonAction(ActionEvent event) {
 		try {
+                                if(tfPasswordReveal.isVisible())
+                                pfPassword.setText(tfPasswordReveal.getText());
 				if (tfMail.getText().isEmpty() || pfPassword.getText().isEmpty()) 
 					throw new Exception("Error, rellena todos los campos");
 				Pattern pattern = Pattern.compile(mailPattern);
@@ -97,22 +101,16 @@ public class LoginController extends GenericController {
 	@FXML
     private void handleSignUpHyperlinkAction(ActionEvent event) {
 		try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/SignUp/SignUp.fxml"));
+	
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/SignUp/SignUp.fxml"));
 
         		Parent root = (Parent) loader.load();
 
-				Stage modalStage = new Stage();
-
-				modalStage.initOwner(stage);
-				modalStage.initModality(Modality.WINDOW_MODAL);
 
        			SignUpController controller = (SignUpController) loader.getController();
-
-        		Scene modalScene = new Scene(root);
-
-       			modalStage.setScene(modalScene);
-        		modalStage.setTitle("Registro"); // Puedes personalizar el título
-        		modalStage.showAndWait(); // Mostrar la ventana modal y esperar hasta que se cierre
+                        
+                        controller.setStage(stage);
+                        controller.initStage(root);
 
 		} catch (Exception e) {
 			// TODO: handle exception
