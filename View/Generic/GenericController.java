@@ -2,7 +2,6 @@ package View.Generic;
 
 import java.util.logging.Logger;
 
-import Classes.SigninSignup;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -15,6 +14,7 @@ public class GenericController {
     * Logger object used to log messages for application.
     */
    	protected static final Logger LOGGER=Logger.getLogger("G3LoginLogoutCliente.View");
+	
     /**
      * Maximum text fields length.
      */
@@ -27,12 +27,6 @@ public class GenericController {
         protected String zipPattern = "^\\d{5}(-\\d{4})?$";
         protected String addressPattern = "^[A-Za-z0-9\\s,.'-]{3,}$";
         protected String passwordPattern = "^(?=.*[A-Z])(?=.*[\\W_]).{8,}$";
-
-    //protected SigninSignup  signinSignup ;
-    //public void setUsersManager(UsersManager usersManager){
-    //    this.usersManager=usersManager;
-    //}
-
 	
     /**
      * The Stage object associated to the Scene controlled by this controller.
@@ -66,8 +60,16 @@ public class GenericController {
         alert.showAndWait();
     }
 
+	/**
+	 * Shows the content of a password field replacing it with a text field.
+	 * @param Eye The FontAwesomeIcon that will be changed.
+	 * @param pfPassword The password field that will be hidden or shown.
+	 * @param tfPasswordReveal 	The text field that will be hidden or shown.
+	 */
 	protected void showPassword(FontAwesomeIcon Eye, PasswordField pfPassword,  TextField tfPasswordReveal) {
+		// We check if the password field is visible or not.
 		Boolean passwordVisible = pfPassword.isVisible();
+		// We change the icon depending on the visibility of the password field.
 		if (pfPassword.isVisible()) {
 			Eye.setGlyphName("MINUS");
 			tfPasswordReveal.setText(pfPassword.getText());
@@ -75,6 +77,7 @@ public class GenericController {
 			Eye.setGlyphName("EYE");
             pfPassword.setText(tfPasswordReveal.getText());
 		}
+		// We change the visibility of the password field and the text field.
 		pfPassword.setVisible(!passwordVisible);
 		tfPasswordReveal.setVisible(passwordVisible);
 	}
