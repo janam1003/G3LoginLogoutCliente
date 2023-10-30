@@ -65,6 +65,9 @@ public class ClientSocket {
             // Read an object from the input stream and cast it to a Message object
             msgReceive = (Message) ois.readObject();
 
+            // Return the received message 
+            return msgReceive;
+
         } catch (IOException | ClassNotFoundException e) {
 
             // Handle exceptions by logging the error
@@ -72,7 +75,6 @@ public class ClientSocket {
 
         }
 
-        // Return the received message 
         return msgReceive;
     }
 }

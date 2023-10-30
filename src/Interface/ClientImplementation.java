@@ -82,6 +82,8 @@ public class ClientImplementation implements SigninSignup {
 
             }
 
+            return user;
+
         } catch (IOException ex) {
 
             // Log any IO exceptions that occur
@@ -90,6 +92,7 @@ public class ClientImplementation implements SigninSignup {
         }
 
         return user;
+
     }
 
     /**
@@ -145,6 +148,8 @@ public class ClientImplementation implements SigninSignup {
 
             }
 
+            return user;
+
         } catch (IOException ex) {
 
             // Log any IO exceptions that occur
@@ -152,6 +157,7 @@ public class ClientImplementation implements SigninSignup {
         }
 
         return user;
+
     }
 
 }
