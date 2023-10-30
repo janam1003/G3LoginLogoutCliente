@@ -1,0 +1,7 @@
+{
+	"java.project.referencedLibraries": [
+		"lib/**/*.jar",
+		"c:\\Users\\2dam\\Downloads\\fontawesomefx-8.2.jar",
+		"c:\\Users\\2dam\\Downloads\\G3LoginLogoutLibrary.jar"
+	]
+}
