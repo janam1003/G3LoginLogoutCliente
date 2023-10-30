@@ -62,6 +62,8 @@ public class LoginController extends GenericController {
     @FXML
     private void handleLogInButtonAction(ActionEvent event) {
 		try {
+                                if(tfPasswordReveal.isVisible())
+                                pfPassword.setText(tfPasswordReveal.getText());
 				if (tfMail.getText().isEmpty() || pfPassword.getText().isEmpty()) 
 					throw new Exception("Error, rellena todos los campos");
 				Pattern pattern = Pattern.compile(mailPattern);
@@ -99,7 +101,6 @@ public class LoginController extends GenericController {
 	@FXML
     private void handleSignUpHyperlinkAction(ActionEvent event) {
 		try {
-			Stage modalStage = new Stage();
 	
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/SignUp/SignUp.fxml"));
 
@@ -108,10 +109,8 @@ public class LoginController extends GenericController {
 
        			SignUpController controller = (SignUpController) loader.getController();
                         
-                        controller.setStage(modalStage);
+                        controller.setStage(stage);
                         controller.initStage(root);
-
-        		stage.close();
 
 		} catch (Exception e) {
 			// TODO: handle exception

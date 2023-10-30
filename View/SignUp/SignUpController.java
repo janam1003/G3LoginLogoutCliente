@@ -94,17 +94,6 @@ public class SignUpController extends GenericController {
     @FXML
     private Label lblExits;
     
-    private final String mailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
-	+ "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-    private final String namePattern = "\\b\\w+\\b.*\\b\\w+\\b";
-    
-    private final String phonePattern = "^(\\+\\d{1,3})?\\s*\\d{1,4}\\s*\\d{1,4}$";
-    
-    private final String zipPattern = "^\\d{5}(-\\d{4})?$";
-    
-    private final String addressPattern = "^[A-Za-z0-9\\s,.'-]{3,}$";
-    
-    private final String passwordPattern = "^(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$";
     /**
      * Initializes the controller class.
      */
@@ -141,23 +130,20 @@ public class SignUpController extends GenericController {
         LOGGER.info("Initializing the SignUp window");
 
         Scene scene = new Scene(root);
+        
+        //Creamos un nuevo stage para no reutilizar el anterior y poder cambiar sus propiedades
+        this.stage = new Stage();
 
-        //Not a resizable window.
         stage.setResizable(false);
 
-        //Modal window of LogIn.
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        //The window title will be ”SignUp”
         stage.setTitle("SignUp");
 
-        //Add the G3 icon.
         stage.getIcons().add(new Image("Resources/logo.png"));
 
-        //Add scene
         stage.setScene(scene);
 
-        //Show window
         stage.show();     
     }
     public void handleOnActionExit(Event event) {
@@ -188,90 +174,54 @@ public class SignUpController extends GenericController {
         }
     }
     @FXML
-    private void handleSignedUpButtonAction(ActionEvent event) {
-        
-        boolean errorExits = false;
-
-        try {
-            if(isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress) || isAnyTextFieldEmpty(pfPassword, pfConfirmPassword)){
-                showErrorAlert("Rellene todos los campos");
-            }else{
-                
-                Pattern nameP = Pattern.compile(namePattern);
-                
-                if (!nameP.matcher(tfNameSurname.getText()).matches()) {
-                    lblName.setVisible(true);
-                    errorExits = true;
-                }else{
-                    lblName.setVisible(false);
-                }
-                
-                Pattern mailP = Pattern.compile(mailPattern);
-                
-                if (!mailP.matcher(tfEmail.getText()).matches()) {
-                    lblEmail.setVisible(true);
-                    errorExits = true;
-                }else{
-                    lblEmail.setVisible(false);
-                }
-                
-                Pattern phoneP = Pattern.compile(phonePattern);
-                
-                if (!phoneP.matcher(tfPhone.getText()).matches()) {
-                    lblPhone.setVisible(true);
-                    errorExits = true;
-                }else{
-                    lblPhone.setVisible(false);
-                }
-                
-                Pattern zipP = Pattern.compile(zipPattern);
-                
-                if (!zipP.matcher(tfZip.getText()).matches()) {
-                    lblZip.setVisible(true);
-                    errorExits = true;
-                }else{
-                    lblZip.setVisible(false);
-                }
-                
-                Pattern AddressP = Pattern.compile(addressPattern);
-                
-                if (!AddressP.matcher(tfAddress.getText()).matches()) {
-                    lblAddress.setVisible(true);
-                    errorExits = true;
-                }else{
-                    lblAddress.setVisible(false);
-                }
-                
-                Pattern PasswordP = Pattern.compile(passwordPattern);
-                
-                if (!PasswordP.matcher(pfPassword.getText()).matches()) {
-                    lblPassword.setVisible(true);
-                    errorExits = true;
-                }else{
-                    lblPassword.setVisible(false);
-                }
-                
-                if (!pfPassword.getText().equals(pfConfirmPassword.getText())) {
-                    lblConfirmPassword.setVisible(true);
-                    errorExits = true;
-                }else{
-                    lblConfirmPassword.setVisible(false);
-                }
-                
-                if(errorExits==true){
-                 showErrorAlert("Revise the values");
-                }else {
-                
-                    
-                }  
-            }
-
-        } catch (Exception e) {
-
+private void handleSignedUpButtonAction(ActionEvent event) {
+    
+    boolean errorExists = false;
+    
+    try {
+        if (isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress) || isAnyTextFieldEmpty(pfPassword, pfConfirmPassword)) {
+            showErrorAlert("Rellene todos los campos");
+        } else {
             
-            showErrorAlert("ERROR");
+            if(tfPasswordReveal.isVisible())
+                pfPassword.setText(tfPasswordReveal.getText());
+            
+             if(tfConfirmPasswordReveal.isVisible())
+                pfConfirmPassword.setText(tfConfirmPasswordReveal.getText());
+ 
+            
+            errorExists = !validateField(tfNameSurname, namePattern, lblName) |
+                          !validateField(tfEmail, mailPattern, lblEmail) |
+                          !validateField(tfPhone, phonePattern, lblPhone) |
+                          !validateField(tfZip, zipPattern, lblZip) |
+                          !validateField(tfAddress, addressPattern, lblAddress) |
+                          !validateField(pfPassword, passwordPattern, lblPassword);
+            
+            if (!pfPassword.getText().equals(pfConfirmPassword.getText())) {
+                lblConfirmPassword.setVisible(true);
+                errorExists = true;
+            } else {
+                lblConfirmPassword.setVisible(false);
+            }
+            
+            if (errorExists) {
+                showErrorAlert("Revise los valores");
+            } else {
+                // Tu código para el caso sin errores aquí
+            }
         }
+    } catch (Exception e) {
+        showErrorAlert("ERROR");
     }
+}
+
+private boolean validateField(TextField field, String pattern, Label label) {
+    Pattern p = Pattern.compile(pattern);
+    boolean valid = p.matcher(field.getText()).matches();
+    label.setVisible(!valid);
+    return !valid;
+}
+
     private void togglePasswordVisibility1(ActionEvent event){
         
         showPassword(faEye1, pfPassword, tfPasswordReveal);
