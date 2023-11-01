@@ -8,7 +8,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+/**
+ * This is the base class for all the controllers in the application.
+ * @author Iñigo
+ */
 public class GenericController {
 	/**
     * Logger object used to log messages for application.
@@ -20,13 +23,16 @@ public class GenericController {
      */
     //protected final int MAX_LENGTH=255;
 
+	/**
+	 * Patterns for text fields validation.
+	 */
 	protected String mailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
 	+ "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-        protected String namePattern = "^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$";
-        protected String phonePattern = "^(\\+\\d{1,3})?\\s*\\d{1,4}\\s*\\d{1,4}$";
-        protected String zipPattern = "^\\d{5}(-\\d{4})?$";
-        protected String addressPattern = "^[A-Za-z0-9\\s,.'-]{3,}$";
-        protected String passwordPattern = "^(?=.*[A-Z])(?=.*[\\W_]).{8,}$";
+    protected String namePattern = "^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$";
+    protected String phonePattern = "^(\\+\\d{1,3})?\\s*\\d{1,4}\\s*\\d{1,4}$";
+    protected String zipPattern = "^\\d{5}(-\\d{4})?$";
+    protected String addressPattern = "^[A-Za-z0-9\\s,.'-]{3,}$";
+    protected String passwordPattern = "^(?=.*[A-Z])(?=.*[\\W_]).{8,}$";
 	
     /**
      * The Stage object associated to the Scene controlled by this controller.
