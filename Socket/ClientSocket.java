@@ -1,12 +1,16 @@
 package Socket;
 
 import Classes.Message;
+import Exceptions.ServerErrorException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,44 +42,36 @@ public class ClientSocket {
      * @return The received message from the server.
      * @throws IOException If an I/O error occurs during socket communication.
      */
-    public Message sendRecieve(Message mesg) throws IOException {
+    public Message sendRecieve(Message mesg) throws IOException, ServerErrorException {
 
         try {
 
             // Create a client socket connection to the specified host and port
-            Socket skCliente = new Socket(HOST, PUERTO);
+            Socket skCliente = new Socket();
+			// Gives timeout if cant find the server
+			skCliente.connect(new InetSocketAddress(HOST, PUERTO), 1000);
 
             // Get the output stream of the socket for sending data
-            OutputStream os = skCliente.getOutputStream();
-
-            // Create an ObjectOutputStream to write objects to the output stream
-            ObjectOutputStream oos = new ObjectOutputStream(os);
-
+            
+			
+			ObjectOutputStream os = new ObjectOutputStream(skCliente.getOutputStream());
+			ObjectInputStream ois = new ObjectInputStream(skCliente.getInputStream());
             // Write the provided 'mesg' object to the output stream
-            oos.writeObject(mesg);
+            os.writeObject(mesg);
 
             /**
              * Receive a message from the server Get the input stream of the
              * socket for receiving data
              */
-            InputStream is = skCliente.getInputStream();
-
-            // Create an ObjectInputStream to read objects from the input stream
-            ObjectInputStream ois = new ObjectInputStream(is);
-
-            // Read an object from the input stream and cast it to a Message object
             msgReceive = (Message) ois.readObject();
 
             // Return the received message 
             return msgReceive;
-
+		} catch (SocketTimeoutException e) {
+			throw new ServerErrorException("Error at reaching the server.");
         } catch (IOException | ClassNotFoundException e) {
 
-            // Handle exceptions by logging the error
-            Logger.getLogger(ClientSocket.class.getName()).log(Level.SEVERE, null, e);
-
         }
-
         return msgReceive;
     }
 }

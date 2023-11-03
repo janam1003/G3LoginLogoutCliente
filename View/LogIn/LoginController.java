@@ -61,7 +61,7 @@ public class LoginController extends GenericController {
 	@FXML
 	private Label lblPassword;
 	/**
-	 * Button to show the password.
+	 * Icon for the button to show the password.
 	 */
 	@FXML
 	private FontAwesomeIcon btEye;
@@ -123,9 +123,6 @@ public class LoginController extends GenericController {
 			User user = new User();
 			user.setMail(tfMail.getText());
 			user.setPassword(pfPassword.getText());
-			// We clear the text fields
-			tfMail.clear();
-			pfPassword.clear();
 			// We get the user logged
 			SigninSignup signinSignup = ClientFactory.getSigninSignup();
 			User userLogged = signinSignup.SignIn(user);
