@@ -31,7 +31,7 @@ public class GenericController {
     protected String namePattern = "^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+){1,1}$";
     protected String phonePattern = "^\\+?\\d{1,4}?\\d{7,10}$";;
     protected String zipPattern = "^\\d{5}(-\\d{4})?$";
-    protected String addressPattern = "^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+)+$";
+    protected String addressPattern = "^(?:[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+|\\d+)(?:\\s(?:[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+|\\d+))+$";
     protected String passwordPattern = "^(?=.*[A-Z])(?=.*[\\W_]).{8,}$";
 	
     /**
