@@ -141,7 +141,7 @@
             <Label fx:id="lblEmail" layoutX="7.0" layoutY="313.0" text="ERROR make sure that your email is well written" textFill="RED" />
             <Label fx:id="lblPassword" layoutX="6.0" layoutY="385.0" text="ERROR this password is not safe enough" textFill="RED" />
             <Label fx:id="lblConfirmPassword" layoutX="6.0" layoutY="457.0" text="The password and the confirmation do not match" textFill="RED" />
-            <Label fx:id="lblExits" layoutX="6.0" layoutY="313.0" text="ERROR, that email already has an account " textFill="RED" />
+            <Label fx:id="lblExist" layoutX="6.0" layoutY="313.0" text="ERROR, that email already has an account " textFill="RED" />
             </children>
         </Pane>
     </children>
