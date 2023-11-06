@@ -1,8 +1,11 @@
 package View.Generic;
 
+import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
@@ -21,7 +24,7 @@ public class GenericController {
     /**
      * Maximum text fields length.
      */
-    //protected final int MAX_LENGTH=255;
+    protected final int MAX_LENGTH=255;
 
 	/**
 	 * Patterns for text fields validation.
@@ -87,4 +90,39 @@ public class GenericController {
 		pfPassword.setVisible(!passwordVisible);
 		tfPasswordReveal.setVisible(passwordVisible);
 	}
+
+/**
+ * Handles the action when the user attempts to exit the application or view.
+ *
+ * @param event The event triggered when the exit action is invoked.
+ */
+    public void handleOnActionExit(Event event) {
+
+        try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Are you sure you want to exit?", ButtonType.OK, ButtonType.CANCEL);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("This Window will be closed");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+
+                stage.close();
+
+                LOGGER.info("SignUP Window Exit");
+
+            } else {
+
+                event.consume();
+            }
+
+        } catch (Exception e) {
+
+            String errorMsg = "Error exiting application:" + e.getMessage();
+
+            this.showErrorAlert(errorMsg);
+
+            LOGGER.log(Level.SEVERE, errorMsg);
+        }
+    }
 }

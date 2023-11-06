@@ -1,6 +1,5 @@
 package View.SignUp;
 
-import Exceptions.EmptyFieldsException;
 import Classes.SigninSignup;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.Optional;
@@ -22,7 +21,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import View.Generic.GenericController;
 import Classes.User;
-import Exceptions.CredentialException;
 import Exceptions.EmailAlreadyExistException;
 import Exceptions.ServerErrorException;
 import Exceptions.UnknownTypeException;
@@ -223,7 +221,7 @@ public class SignUpController extends GenericController {
             //We check if there is an empty field
             if (isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
                 //Throws an exception if something is empty
-                throw new EmptyFieldsException("Rellene todos los campos");
+                throw new Exception("Rellene todos los campos");
             } else {
                 //We check if there is any error on the text fields
                 errorExists = !validateField(tfNameSurname, namePattern, lblName)
@@ -242,7 +240,7 @@ public class SignUpController extends GenericController {
 
                 //In case that there is an error we throw the CredentialException
                 if (errorExists) {
-                    throw new CredentialException("Revise los valores");
+                    throw new Exception("Revise los valores");
                     //If there is no error it will start creating a user  
                 } else {
 
@@ -260,10 +258,10 @@ public class SignUpController extends GenericController {
                     stage.close();
                 }
             }
-        } catch (EmptyFieldsException e) {
-            this.showErrorAlert(e.getMessage());
-            } catch (CredentialException e) {
-            this.showErrorAlert(e.getMessage());
+//        } catch (EmptyFieldsException e) {
+//            this.showErrorAlert(e.getMessage());
+//        } catch (CredentialException e) {
+//            this.showErrorAlert(e.getMessage());
         } catch (EmailAlreadyExistException e) {
             lblExist.setVisible(true);
         }catch (ServerErrorException e) {

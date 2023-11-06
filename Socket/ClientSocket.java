@@ -32,6 +32,9 @@ public class ClientSocket {
     // Get the host name from the configuration file
     private final String HOST = configFile.getString("HOST");
 
+    // Get the tiemout time value from the configuration file and store it as an Integer
+    private final Integer TIMEOUT = Integer.parseInt(configFile.getString("TIMEOUT"));
+
     // Create an instance of the Message class to store received messages
     private Message msgReceive = new Message();
 
@@ -49,7 +52,7 @@ public class ClientSocket {
             // Create a client socket connection to the specified host and port
             Socket skCliente = new Socket();
 			// Gives timeout if cant find the server
-			skCliente.connect(new InetSocketAddress(HOST, PUERTO), 1000);
+			skCliente.connect(new InetSocketAddress(HOST, PUERTO), TIMEOUT);
 
             // Get the output stream of the socket for sending data
             
