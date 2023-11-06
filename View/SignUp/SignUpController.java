@@ -1,5 +1,6 @@
 package View.SignUp;
 
+import Exceptions.EmptyFieldsException;
 import Classes.SigninSignup;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.Optional;
@@ -213,16 +214,16 @@ public class SignUpController extends GenericController {
 
         try {
             // We pass the value from the show password to the hidden one.
-            if (tfPasswordReveal.isVisible()) 
-                pfPassword.setText(tfPasswordReveal.getText());
+            if (pfPassword.isVisible()) 
+                tfPasswordReveal.setText(pfPassword.getText());
 
-            if (tfConfirmPasswordReveal.isVisible()) 
-                pfConfirmPassword.setText(tfConfirmPasswordReveal.getText());
+            if (pfConfirmPassword.isVisible()) 
+                tfConfirmPasswordReveal.setText(pfConfirmPassword.getText());
             
             //We check if there is an empty field
-            if (true==isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
+            if (isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
                 //Throws an exception if something is empty
-                throw new Exception();
+                throw new EmptyFieldsException("Rellene todos los campos");
             } else {
                 //We check if there is any error on the text fields
                 errorExists = !validateField(tfNameSurname, namePattern, lblName)
@@ -232,7 +233,7 @@ public class SignUpController extends GenericController {
                         | !validateField(tfAddress, addressPattern, lblAddress)
                         | !validateField(pfPassword, passwordPattern, lblPassword);
                 //We check if the content of the password and the confirm are the same
-                if (!pfPassword.getText().equals(pfConfirmPassword.getText())) {
+                if (!tfPasswordReveal.getText().equals(tfConfirmPasswordReveal.getText())) {
                     lblConfirmPassword.setVisible(true);
                     errorExists = true;
                 } else {
@@ -259,14 +260,18 @@ public class SignUpController extends GenericController {
                     stage.close();
                 }
             }
+        } catch (EmptyFieldsException e) {
+            this.showErrorAlert(e.getMessage());
+            } catch (CredentialException e) {
+            this.showErrorAlert(e.getMessage());
         } catch (EmailAlreadyExistException e) {
             lblExist.setVisible(true);
-        } catch (ServerErrorException e) {
+        }catch (ServerErrorException e) {
             this.showErrorAlert(e.getMessage());
         } catch (UnknownTypeException e) {
             this.showErrorAlert(e.getMessage());
         } catch (Exception e) {
-            this.showErrorAlert("Rellene todos los campos");
+            this.showErrorAlert(e.getMessage());
         }
     }
 
