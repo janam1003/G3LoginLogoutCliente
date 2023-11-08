@@ -11,7 +11,6 @@ import Exceptions.ServerErrorException;
 import Exceptions.UnknownTypeException;
 import Socket.ClientSocket;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -29,6 +28,11 @@ public class ClientImplementation implements SigninSignup {
     private final ClientSocket clientSocket = new ClientSocket();
 
     /**
+     * Logger object used to log messages for application.
+     */
+    private static final Logger LOGGER = Logger.getLogger(ClientImplementation.class.getName());
+
+    /**
      * Attempts to sign-in a user.
      *
      * @param user The User object containing login credentials.
@@ -44,6 +48,8 @@ public class ClientImplementation implements SigninSignup {
     public User SignIn(User user) throws IncorrectLoginException, ServerErrorException, UnknownTypeException, MaxUserException {
 
         try {
+
+            LOGGER.info("Attempting to signIn the user.\n");
 
             // Create a Message object and set its values 
             message = new Message();
@@ -84,14 +90,15 @@ public class ClientImplementation implements SigninSignup {
 
             return user;
 
-		} catch (ServerErrorException e) {
-			throw e;
+        } catch (ServerErrorException e) {
+
+            LOGGER.severe("An server error occurred in SIGNIN: " + e.getMessage());
+
+            throw e;
+
         } catch (IOException ex) {
 
-            // Log any IO exceptions that occur
-			//ex.getMessage();
-			ex.printStackTrace();
-           // Logger.getLogger(ClientImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.severe("An error occurred in SIGNIN: " + ex.getMessage());
 
         }
 
@@ -114,6 +121,8 @@ public class ClientImplementation implements SigninSignup {
     public User signUp(User user) throws ServerErrorException, EmailAlreadyExistException, UnknownTypeException, MaxUserException {
 
         try {
+
+            LOGGER.info("Attempting to signUp a new user.\n");
 
             // Create a Message object and set its values
             message = new Message();
@@ -156,8 +165,8 @@ public class ClientImplementation implements SigninSignup {
 
         } catch (IOException ex) {
 
-            // Log any IO exceptions that occur
-            Logger.getLogger(ClientImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.severe("An error occurred in SIGNUP: " + ex.getMessage());
+
         }
 
         return user;

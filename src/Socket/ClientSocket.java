@@ -2,17 +2,13 @@ package Socket;
 
 import Classes.Message;
 import Exceptions.ServerErrorException;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -38,6 +34,9 @@ public class ClientSocket {
     // Create an instance of the Message class to store received messages
     private Message msgReceive = new Message();
 
+    // Logger object used to log messages for application.
+    private static final Logger LOGGER = Logger.getLogger(ClientSocket.class.getName());
+
     /**
      * Sends a message to a server and receives a response.
      *
@@ -49,16 +48,18 @@ public class ClientSocket {
 
         try {
 
+            LOGGER.info("Sending a message to a server to receive a response.");
+
             // Create a client socket connection to the specified host and port
             Socket skCliente = new Socket();
-			// Gives timeout if cant find the server
-			skCliente.connect(new InetSocketAddress(HOST, PUERTO), TIMEOUT);
+
+            // Gives timeout if cant find the server
+            skCliente.connect(new InetSocketAddress(HOST, PUERTO), TIMEOUT);
 
             // Get the output stream of the socket for sending data
-            
-			
-			ObjectOutputStream os = new ObjectOutputStream(skCliente.getOutputStream());
-			ObjectInputStream ois = new ObjectInputStream(skCliente.getInputStream());
+            ObjectOutputStream os = new ObjectOutputStream(skCliente.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(skCliente.getInputStream());
+
             // Write the provided 'mesg' object to the output stream
             os.writeObject(mesg);
 
@@ -70,11 +71,19 @@ public class ClientSocket {
 
             // Return the received message 
             return msgReceive;
-		} catch (SocketTimeoutException e) {
-			throw new ServerErrorException("Error at reaching the server.");
+
+        } catch (SocketTimeoutException e) {
+
+            LOGGER.severe("Error: Connection timeout when reaching the server." + e.getMessage());
+
+            throw new ServerErrorException("Error at reaching the server.");
+
         } catch (IOException | ClassNotFoundException e) {
 
+            LOGGER.severe("Error: " + e.getMessage());
+
         }
+
         return msgReceive;
     }
 }
