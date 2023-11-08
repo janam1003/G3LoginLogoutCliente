@@ -93,6 +93,8 @@ public class LoginController extends GenericController {
 			btnLogIn.setDefaultButton(true);
 			// We set the cancel button
 			tfPasswordReveal.setVisible(false);
+			// Define the action when the x for exit on the window is clicked
+			stage.setOnCloseRequest(this::handleOnActionExit);
 			// We show the stage
 			stage.show();
 
@@ -116,7 +118,7 @@ public class LoginController extends GenericController {
 			if (tfMail.getText().trim().isEmpty() || pfPassword.getText().isEmpty())
 				throw new Exception("Error, rellena todos los campos");
 			// If mail or/and password has more chars tham MAX_LENGTH we throw an exception
-			if(tfMail.getText().length()>this.MAX_LENGTH ||pfPassword.getText().length()>this.MAX_LENGTH)
+			if (tfMail.getText().length() > this.MAX_LENGTH || pfPassword.getText().length() > this.MAX_LENGTH)
 				showErrorAlert("La longitud máxima del campo es de 255 caracteres");
 			// We check if the mail pattern is valid
 			Pattern pattern = Pattern.compile(mailPattern);
