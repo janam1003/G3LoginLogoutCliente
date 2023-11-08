@@ -1,27 +1,32 @@
 package View.Generic;
 
+import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 /**
  * This is the base class for all the controllers in the application.
+ * 
  * @author Iñigo
  */
 public class GenericController {
 	/**
-    * Logger object used to log messages for application.
-    */
-   	protected static final Logger LOGGER=Logger.getLogger("G3LoginLogoutCliente.View");
-	
-    /**
-     * Maximum text fields length.
-     */
-    //protected final int MAX_LENGTH=255;
+	 * Logger object used to log messages for application.
+	 */
+	protected static final Logger LOGGER = Logger.getLogger("G3LoginLogoutCliente.View");
+
+	/**
+	 * Maximum text fields length.
+	 */
+	protected final int MAX_LENGTH = 255;
 
 	/**
 	 * Patterns for text fields validation.
@@ -68,11 +73,12 @@ public class GenericController {
 
 	/**
 	 * Shows the content of a password field replacing it with a text field.
-	 * @param Eye The FontAwesomeIcon that will be changed.
-	 * @param pfPassword The password field that will be hidden or shown.
-	 * @param tfPasswordReveal 	The text field that will be hidden or shown.
+	 * 
+	 * @param Eye              The FontAwesomeIcon that will be changed.
+	 * @param pfPassword       The password field that will be hidden or shown.
+	 * @param tfPasswordReveal The text field that will be hidden or shown.
 	 */
-	protected void showPassword(FontAwesomeIcon Eye, PasswordField pfPassword,  TextField tfPasswordReveal) {
+	protected void showPassword(FontAwesomeIcon Eye, PasswordField pfPassword, TextField tfPasswordReveal) {
 		// We check if the password field is visible or not.
 		Boolean passwordVisible = pfPassword.isVisible();
 		// We change the icon depending on the visibility of the password field.
@@ -81,10 +87,40 @@ public class GenericController {
 			tfPasswordReveal.setText(pfPassword.getText());
 		} else {
 			Eye.setGlyphName("EYE");
-            pfPassword.setText(tfPasswordReveal.getText());
+			pfPassword.setText(tfPasswordReveal.getText());
 		}
 		// We change the visibility of the password field and the text field.
 		pfPassword.setVisible(!passwordVisible);
 		tfPasswordReveal.setVisible(passwordVisible);
+	}
+
+	/**
+	 * Handles the action when the user attempts to exit the application or view.
+	 *
+	 * @param event The event triggered when the exit action is invoked.
+	 */
+	public void handleOnActionExit(Event event) {
+		try {
+			// We show an alert to confirm the exit
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Are you sure you want to exit?", ButtonType.OK,
+					ButtonType.CANCEL);
+			// We wait for the user's response
+			alert.showAndWait();
+			// If the user clicks ok, we close the window
+			if (alert.getResult() == ButtonType.OK) {
+				this.stage.close();
+				LOGGER.info("Window " + this.stage.getTitle() + " closed successfully.");
+			} else {
+				event.consume();
+			}
+
+		} catch (Exception e) {
+
+			String errorMsg = "Error exiting application:" + e.getMessage();
+
+			this.showErrorAlert(errorMsg);
+
+			LOGGER.log(Level.SEVERE, errorMsg);
+		}
 	}
 }

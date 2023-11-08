@@ -57,6 +57,8 @@ public class LoggedController extends GenericController{
 			stage.setScene(new Scene(root));
 			// Set window non-resizable
 			stage.setResizable(false);
+			//Define the action when the x for exit on the window is clicked
+			stage.setOnCloseRequest(this::handleOnActionExit);
 			// Show the window
 			stage.show();
 			// Set the user's name in the label

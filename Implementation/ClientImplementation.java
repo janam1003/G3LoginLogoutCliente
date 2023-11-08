@@ -84,10 +84,14 @@ public class ClientImplementation implements SigninSignup {
 
             return user;
 
+		} catch (ServerErrorException e) {
+			throw e;
         } catch (IOException ex) {
 
             // Log any IO exceptions that occur
-            Logger.getLogger(ClientImplementation.class.getName()).log(Level.SEVERE, null, ex);
+			//ex.getMessage();
+			ex.printStackTrace();
+           // Logger.getLogger(ClientImplementation.class.getName()).log(Level.SEVERE, null, ex);
 
         }
 

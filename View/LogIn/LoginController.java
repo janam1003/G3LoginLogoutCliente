@@ -61,7 +61,7 @@ public class LoginController extends GenericController {
 	@FXML
 	private Label lblPassword;
 	/**
-	 * Button to show the password.
+	 * Icon for the button to show the password.
 	 */
 	@FXML
 	private FontAwesomeIcon btEye;
@@ -93,6 +93,8 @@ public class LoginController extends GenericController {
 			btnLogIn.setDefaultButton(true);
 			// We set the cancel button
 			tfPasswordReveal.setVisible(false);
+			// Define the action when the x for exit on the window is clicked
+			stage.setOnCloseRequest(this::handleOnActionExit);
 			// We show the stage
 			stage.show();
 
@@ -113,8 +115,11 @@ public class LoginController extends GenericController {
 			if (tfPasswordReveal.isVisible())
 				pfPassword.setText(tfPasswordReveal.getText());
 			// If the mail or the password are empty, we throw an exception
-			if (tfMail.getText().isEmpty() || pfPassword.getText().isEmpty())
+			if (tfMail.getText().trim().isEmpty() || pfPassword.getText().isEmpty())
 				throw new Exception("Error, rellena todos los campos");
+			// If mail or/and password has more chars tham MAX_LENGTH we throw an exception
+			if (tfMail.getText().length() > this.MAX_LENGTH || pfPassword.getText().length() > this.MAX_LENGTH)
+				showErrorAlert("La longitud máxima del campo es de 255 caracteres");
 			// We check if the mail pattern is valid
 			Pattern pattern = Pattern.compile(mailPattern);
 			if (!pattern.matcher(tfMail.getText()).matches())
@@ -123,9 +128,6 @@ public class LoginController extends GenericController {
 			User user = new User();
 			user.setMail(tfMail.getText());
 			user.setPassword(pfPassword.getText());
-			// We clear the text fields
-			tfMail.clear();
-			pfPassword.clear();
 			// We get the user logged
 			SigninSignup signinSignup = ClientFactory.getSigninSignup();
 			User userLogged = signinSignup.SignIn(user);

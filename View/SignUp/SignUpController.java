@@ -1,6 +1,5 @@
 package View.SignUp;
 
-import Exceptions.EmptyFieldsException;
 import Classes.SigninSignup;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.Optional;
@@ -22,7 +21,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import View.Generic.GenericController;
 import Classes.User;
-import Exceptions.CredentialException;
 import Exceptions.EmailAlreadyExistException;
 import Exceptions.ServerErrorException;
 import Exceptions.UnknownTypeException;
