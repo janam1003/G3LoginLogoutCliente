@@ -229,7 +229,9 @@ public class SignUpController extends GenericController {
             //We check if there is an empty field 
             if (isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
                 //Throws an exception if something is empty
-                throw new EmptyFieldsException("Rellene todos los campos");
+                throw new CredentialException("Complete every field");
+            } else if (isAnyTextFieldTooLong(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
+                throw new CredentialException("One field or more are too long");
             } else {
                 //We check if there is any error on the text fields
                 errorExists = validateField(tfNameSurname, namePattern, lblName)
@@ -248,7 +250,7 @@ public class SignUpController extends GenericController {
 
                 //In case that there is an error we throw the CredentialException
                 if (errorExists) {                
-                    throw new CredentialException("Revise los valores");
+                    throw new CredentialException("Revise the values");
                     //If there is no error it will start creating a user  
                 } else {
 
@@ -266,8 +268,6 @@ public class SignUpController extends GenericController {
                     stage.close();
                 }
             }
-        } catch (EmptyFieldsException e) {
-            this.showErrorAlert(e.getMessage());
         } catch (CredentialException e) {
             this.showErrorAlert(e.getMessage());
         } catch (EmailAlreadyExistException e) {
@@ -296,6 +296,7 @@ public class SignUpController extends GenericController {
         label.setVisible(!valid);
         return !valid;
     }
+    
 
     /**
      * Method show the pfPassword content.
@@ -328,6 +329,20 @@ public class SignUpController extends GenericController {
     private boolean isAnyTextFieldEmpty(TextField... textFields) {
         for (TextField x : textFields) {
             if (x.getText().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+        /**
+     * Checks if any of the provided TextFields is too long.
+     *
+     * @param textFields The TextFields to check for length.
+     * @return True if any of the TextFields is too long, false otherwise.
+     */
+     private boolean isAnyTextFieldTooLong(TextField... textFields) {
+        for (TextField x : textFields) {
+            if (x.getText().length()>MAX_LENGTH) {
                 return true;
             }
         }
