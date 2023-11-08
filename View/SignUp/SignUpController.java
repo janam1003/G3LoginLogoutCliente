@@ -208,28 +208,36 @@ public class SignUpController extends GenericController {
     @FXML
     private void handleSignedUpButtonAction(ActionEvent event) {
 
-        boolean errorExists = false;
-
+        boolean errorExists= false;
+       
         try {
             // We pass the value from the show password to the hidden one.
-            if (pfPassword.isVisible()) 
+            if (pfPassword.isVisible()) {
                 tfPasswordReveal.setText(pfPassword.getText());
+            } else if (tfPasswordReveal.isVisible()) {
+                pfPassword.setText(tfPasswordReveal.getText());
+            }
 
-            if (pfConfirmPassword.isVisible()) 
+            if (pfConfirmPassword.isVisible()) {
                 tfConfirmPasswordReveal.setText(pfConfirmPassword.getText());
-            
-            //We check if there is an empty field
+            } else if (tfConfirmPasswordReveal.isVisible()) {
+                pfConfirmPassword.setText(tfConfirmPasswordReveal.getText());
+            }
+
+            //We check if there is an empty field 
             if (isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
                 //Throws an exception if something is empty
-                throw new Exception("Rellene todos los campos");
+                throw new CredentialException("Complete every field");
+            } else if (isAnyTextFieldTooLong(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
+                throw new CredentialException("One field or more are too long");
             } else {
                 //We check if there is any error on the text fields
-                errorExists = !validateField(tfNameSurname, namePattern, lblName)
-                        | !validateField(tfEmail, mailPattern, lblEmail)
-                        | !validateField(tfPhone, phonePattern, lblPhone)
-                        | !validateField(tfZip, zipPattern, lblZip)
-                        | !validateField(tfAddress, addressPattern, lblAddress)
-                        | !validateField(pfPassword, passwordPattern, lblPassword);
+                errorExists = validateField(tfNameSurname, namePattern, lblName)
+                        | validateField(tfEmail, mailPattern, lblEmail)
+                        | validateField(tfPhone, phonePattern, lblPhone)
+                        | validateField(tfZip, zipPattern, lblZip)
+                        | validateField(tfAddress, addressPattern, lblAddress)
+                        | validateField(pfPassword, passwordPattern, lblPassword);
                 //We check if the content of the password and the confirm are the same
                 if (!tfPasswordReveal.getText().equals(tfConfirmPasswordReveal.getText())) {
                     lblConfirmPassword.setVisible(true);
@@ -239,8 +247,8 @@ public class SignUpController extends GenericController {
                 }
 
                 //In case that there is an error we throw the CredentialException
-                if (errorExists) {
-                    throw new Exception("Revise los valores");
+                if (errorExists) {                
+                    throw new CredentialException("Revise the values");
                     //If there is no error it will start creating a user  
                 } else {
 
@@ -258,13 +266,11 @@ public class SignUpController extends GenericController {
                     stage.close();
                 }
             }
-//        } catch (EmptyFieldsException e) {
-//            this.showErrorAlert(e.getMessage());
-//        } catch (CredentialException e) {
-//            this.showErrorAlert(e.getMessage());
+        } catch (CredentialException e) {
+            this.showErrorAlert(e.getMessage());
         } catch (EmailAlreadyExistException e) {
             lblExist.setVisible(true);
-        }catch (ServerErrorException e) {
+        } catch (ServerErrorException e) {
             this.showErrorAlert(e.getMessage());
         } catch (UnknownTypeException e) {
             this.showErrorAlert(e.getMessage());
@@ -288,6 +294,7 @@ public class SignUpController extends GenericController {
         label.setVisible(!valid);
         return !valid;
     }
+    
 
     /**
      * Method show the pfPassword content.
@@ -300,7 +307,7 @@ public class SignUpController extends GenericController {
 
     }
 
-     /**
+    /**
      * Method show the pfPasswordConfirm content.
      *
      * @param event An action event.
@@ -312,11 +319,11 @@ public class SignUpController extends GenericController {
     }
 
     /**
- * Checks if any of the provided TextFields are empty.
- *
- * @param textFields The TextFields to check for emptiness.
- * @return True if any of the TextFields is empty, false otherwise.
- */
+     * Checks if any of the provided TextFields are empty.
+     *
+     * @param textFields The TextFields to check for emptiness.
+     * @return True if any of the TextFields is empty, false otherwise.
+     */
     private boolean isAnyTextFieldEmpty(TextField... textFields) {
         for (TextField x : textFields) {
             if (x.getText().isEmpty()) {
@@ -325,9 +332,25 @@ public class SignUpController extends GenericController {
         }
         return false;
     }
-/**
- * Displays an information alert to inform the user that their account has been successfully created.
- */
+        /**
+     * Checks if any of the provided TextFields is too long.
+     *
+     * @param textFields The TextFields to check for length.
+     * @return True if any of the TextFields is too long, false otherwise.
+     */
+     private boolean isAnyTextFieldTooLong(TextField... textFields) {
+        for (TextField x : textFields) {
+            if (x.getText().length()>MAX_LENGTH) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Displays an information alert to inform the user that their account has
+     * been successfully created.
+     */
     public void showUserCreatedAlert() {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("User Created");
@@ -335,11 +358,13 @@ public class SignUpController extends GenericController {
         alert.setContentText("You can now log in with your new account.");
         alert.showAndWait();
     }
-/**
- * Handles the action when the user attempts to exit the application or view.
- *
- * @param event The event triggered when the exit action is invoked.
- */
+
+    /**
+     * Handles the action when the user attempts to exit the application or
+     * view.
+     *
+     * @param event The event triggered when the exit action is invoked.
+     */
     public void handleOnActionExit(Event event) {
 
         try {

@@ -31,51 +31,45 @@ public class GenericController {
 	/**
 	 * Patterns for text fields validation.
 	 */
-	protected String mailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-			+ "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-	protected String namePattern = "^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$";
-	protected String phonePattern = "^(\\+\\d{1,3})?\\s*\\d{1,4}\\s*\\d{1,4}$";
-	protected String zipPattern = "^\\d{5}(-\\d{4})?$";
-	protected String addressPattern = "^[A-Za-z0-9\\s,.'-]{3,}$";
-	protected String passwordPattern = "^(?=.*[A-Z])(?=.*[\\W_]).{8,}$";
-
-	/**
-	 * The Stage object associated to the Scene controlled by this controller.
-	 * This is an utility method reference that provides quick access inside the
-	 * controller to the Stage object in order to make its initialization. Note
-	 * that this makes Application, Controller and Stage being tightly coupled.
-	 */
-	protected Stage stage;
-
-	/**
-	 * Gets the Stage object related to this controller.
-	 * 
-	 * @return The Stage object initialized by this controller.
-	 */
-	public Stage getStage() {
-		return stage;
-	}
-
-	/**
-	 * Sets the Stage object related to this controller.
-	 * 
-	 * @param stage The Stage object to be initialized.
-	 */
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-
-	/**
-	 * Shows an error message in an alert dialog.
-	 * 
-	 * @param errorMsg The error message to be shown.
-	 */
-	protected void showErrorAlert(String errorMsg) {
-		// Shows error dialog.
-		Alert alert = new Alert(Alert.AlertType.ERROR, errorMsg, ButtonType.OK);
-		alert.getDialogPane();
-		alert.showAndWait();
-	}
+	protected String mailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
+	+ "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+    protected String namePattern = "^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+){1,1}$";
+    protected String phonePattern = "^\\+?\\d{1,4}?\\d{7,10}$";;
+    protected String zipPattern = "^\\d{5}(-\\d{4})?$";
+    protected String addressPattern = "^(?:[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+|\\d+)(?:\\s(?:[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+|\\d+))+$";
+    protected String passwordPattern = "^(?=.*[A-Z])(?=.*[\\W_]).{8,}$";
+	
+    /**
+     * The Stage object associated to the Scene controlled by this controller.
+     * This is an utility method reference that provides quick access inside the 
+     * controller to the Stage object in order to make its initialization. Note 
+     * that this makes Application, Controller and Stage being tightly coupled.
+     */
+    protected Stage stage;
+    /**
+     * Gets the Stage object related to this controller.
+     * @return The Stage object initialized by this controller.
+     */
+    public Stage getStage(){
+        return stage;
+    }
+    /**
+     * Sets the Stage object related to this controller. 
+     * @param stage The Stage object to be initialized.
+     */
+    public void setStage(Stage stage){
+        this.stage=stage;
+    }
+    /**
+     * Shows an error message in an alert dialog.
+     * @param errorMsg The error message to be shown.
+     */
+    protected void showErrorAlert(String errorMsg){
+        //Shows error dialog.
+        Alert alert=new Alert(Alert.AlertType.ERROR, errorMsg, ButtonType.OK);
+        alert.getDialogPane();
+        alert.showAndWait();
+    }
 
 	/**
 	 * Shows the content of a password field replacing it with a text field.
