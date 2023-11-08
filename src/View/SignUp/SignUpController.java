@@ -2,17 +2,13 @@ package View.SignUp;
 
 import Classes.SigninSignup;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import java.util.Optional;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -220,6 +216,9 @@ public class SignUpController extends GenericController {
 
         //Sets the new scene
         stage.setScene(scene);
+
+        // Focus on the Name Surbname Textfield.
+        tfNameSurname.requestFocus();
 
         //The stage is shown
         stage.show();
