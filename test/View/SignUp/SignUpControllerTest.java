@@ -28,7 +28,7 @@ public class SignUpControllerTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         new Application().start(stage);
-        clickOn("#hlSignUp");
+        
     }
 
     @Override
@@ -38,18 +38,19 @@ public class SignUpControllerTest extends ApplicationTest {
     // Test case for creating an account with empty  
     @Test
     public void Test_A_createButtonEmptyFieldTest() {
+        clickOn("#hlSignUp");
         clickOn("#tfNameSurname").write("John Doe");
-        clickOn("#tfPhone").write("+34666666666");
-        clickOn("#tfZip").write("12345");
         clickOn("#tfAddress").write("123 Main St");
-        clickOn("#pfPassword").write("Password1234*");
-        clickOn("#pfConfirmPassword").write("Password1234*");
+        clickOn("#tfZip").write("12345");
+        clickOn("#tfPhone").write("+34666666666");
+        clickOn("#pfPasswordSU").write("Password1234*");
+        clickOn("#pfConfirmPasswordSU").write("Password1234*");
         clickOn("#btnCreateAccount");
         verifyThat("Complete every field", isVisible());
         clickOn("Aceptar");
     }
 
-    // Test case for creating an account with a too long email
+    // Test case for creating an account with a too long email it is commented beacause it is too long
     //@Test
     public void Test_B_createButtonLongFieldTest() {
         clickOn("#tfEmail").write("cdcvdsvdsvdsvldsanvñlsavnvlsñkadnvdsñalkvnsadlvnslkdvnlkdsñvndsñvnjas´lvnbdsalnakds´fjdnfls´kdnaclkdsncslkda´nfkljdsfncldsk´nc´ldskafjvckldsa´nvlkds´vandsnvls´kdanvvdskvn´ldsanvndvl´kdsanvldk´snv´saldkvndsvnkldsnv´lkdvnasnvlkdsanvlkdsvn´sadkl´vnvndsvnasd´l");
@@ -59,29 +60,49 @@ public class SignUpControllerTest extends ApplicationTest {
         eraseText(256);
     }
 
-    // Test case for creating an account with wrong input in the "NameSurname" field
+    // Test case for creating an account with wrong input on every field, it checks that the corresponding label is visible
     @Test
-    public void Test_C_createButtonWrongFieldTest() {
-        
-        clickOn("#tfEmail").write(mail);
+    public void Test_C_createButtonWrongFieldsTest() {
+
         clickOn("#tfNameSurname");
         eraseText(8);
         write("--------");
+        clickOn("#tfAddress");
+        eraseText(11);
+        write("aaa");
+        clickOn("#tfZip");
+        eraseText(5);
+        write("aaa");
+        doubleClickOn("#tfPhone");
+        eraseText(2);
+        write("aaa");
+        clickOn("#tfEmail").write("aaa"); 
+        clickOn("#pfPasswordSU");
+        eraseText(13);
+        write("aaa");
+        clickOn("#pfConfirmPasswordSU");
+        eraseText(13);
+        write("aa");
         clickOn("#btnCreateAccount");
         verifyThat("Revise the values", isVisible());
         clickOn("Aceptar");
         verifyThat("#lblName", isVisible());
-        clickOn("#tfNameSurname");
-        eraseText(8);
+        verifyThat("#lblEmail", isVisible());
+        verifyThat("#lblZip", isVisible());
+        verifyThat("#lblPhone", isVisible());
+        verifyThat("#lblAddress", isVisible());
+        verifyThat("#lblPassword", isVisible());
+        verifyThat("#lblConfirmPassword", isVisible());
+
     }
 
-    // Test case for creating an account with valid input
+    // Test case for testing the password reveal method
     @Test
     public void Test_D_PasswordRevealTest() {
         clickOn("#btnEye1");
         clickOn("#btnEye2");
-        verifyThat("#tfPasswordReveal", isVisible());
-        verifyThat("#tfConfirmPasswordReveal", isVisible());
+        verifyThat("#tfPasswordRevealSU", isVisible());
+        verifyThat("#tfConfirmPasswordRevealSU", isVisible());
         clickOn("#btnEye1");
         clickOn("#btnEye2");
     }
@@ -89,27 +110,49 @@ public class SignUpControllerTest extends ApplicationTest {
     // Test case for creating an account with valid input
     @Test
     public void Test_E_createButtonFineTest() {
-        clickOn("#tfNameSurname").write("John Doe");
+        
+        clickOn("#tfNameSurname");
+        eraseText(8);
+        write("John Doe");
+        clickOn("#tfAddress");
+        eraseText(3);
+        write("123 Main St");
+        clickOn("#tfZip");
+        eraseText(3);
+        write("12345");
+        clickOn("#tfPhone");
+        eraseText(3);
+        write("+34666666666");
+        clickOn("#tfEmail");
+        eraseText(3);
+        write(mail);
+        clickOn("#pfPasswordSU");
+        eraseText(3);
+        write("Password1234*");
+        clickOn("#pfConfirmPasswordSU");
+        eraseText(2);
+        write("Password1234*");
         clickOn("#btnCreateAccount");
         verifyThat("You can now log in with your new account.", isVisible());
         clickOn("Aceptar");
         verifyThat("#btnEye", isVisible());
     }
 
+    // Test case for creating an account with an already existing email
     @Test
     public void Test_F_createButtonEmailExistTest() {
         // Perform actions to simulate user input
         clickOn("#hlSignUp");
-        clickOn("#tfEmail").write(mail);
         clickOn("#tfNameSurname").write("John Doe");
-        clickOn("#tfPhone").write("+34666666666");
-        clickOn("#tfZip").write("12345");
         clickOn("#tfAddress").write("123 Main St");
-        clickOn("#pfPassword").write("Password1234*");
-        clickOn("#pfConfirmPassword").write("Password1234*");
+        clickOn("#tfZip").write("12345");
+        clickOn("#tfPhone").write("+34666666666");
+        clickOn("#tfEmail").write(mail);
+        clickOn("#pfPasswordSU").write("Password1234*");
+        clickOn("#pfConfirmPasswordSU").write("Password1234*");
         clickOn("#btnCreateAccount");
         verifyThat("#lblExist", isVisible());
-        clickOn("Aceptar");
+       
 
     }
 

@@ -10,6 +10,8 @@ import Exceptions.MaxUserException;
 import Exceptions.ServerErrorException;
 import Exceptions.UnknownTypeException;
 import Socket.ClientSocket;
+import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -168,12 +170,10 @@ public class ClientImplementation implements SigninSignup {
 
 			throw e;
 
-		} catch (Exception ex) {
-
-			LOGGER.severe("An error occurred in SignUp: " + ex.getMessage());
-			throw new ServerErrorException("Error " + ex.getMessage());
-		}
-
+		} catch (IOException ex) { 
+                    LOGGER.severe("An error occurred in SignUp: " + ex.getMessage());
+                    throw new ServerErrorException("Error " + ex.getMessage());
+                }
 	}
 
 }

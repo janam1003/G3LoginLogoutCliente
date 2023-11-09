@@ -24,23 +24,28 @@ public class SignUpControllerCloseTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         new Application().start(stage);
-        clickOn("#hlSignUp");
+        
     }
 
     @Override
     public void stop() {
     }
 
+    //Test method to check the behavior of the cancel button.
     @Test
     public void Test_A_cancelButtonTest() {
+        clickOn("#hlSignUp");
         clickOn("#btnCancel");
         verifyThat("¿Are you sure you want to exit?", isVisible());
         clickOn("Aceptar");
 
     }
+    
 
+    //Test method to check the behavior of the main window exit button.
     @Test
     public void Test_B_ExitTest() {
+    clickOn("#hlSignUp");
     closeCurrentWindow();
     verifyThat("¿Are you sure you want to exit?", isVisible());
     clickOn("Aceptar");  

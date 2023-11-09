@@ -25,7 +25,7 @@ public class SignUpControllerServerTest extends ApplicationTest {
     public void start(Stage stage) throws Exception {
         // Launch the application and click on the SignUp button
         new Application().start(stage);
-        clickOn("#hlSignUp");
+        
     }
     
     @Override
@@ -39,14 +39,16 @@ public class SignUpControllerServerTest extends ApplicationTest {
     @Test
     public void Test_A_createServerErrorTest() {
         // Perform actions to simulate user input
+        clickOn("#hlSignUp");
         String mail = "johndoe"+(Math.random()*100)+"@gmail.com";
+        
         clickOn("#tfNameSurname").write("John Doe");
-        clickOn("#tfPhone").write("+34666666666");
-        clickOn("#tfZip").write("12345");
         clickOn("#tfAddress").write("123 Main St");
+        clickOn("#tfZip").write("12345");
+        clickOn("#tfPhone").write("+34666666666");
+        clickOn("#tfEmail").write(mail);
         clickOn("#pfPasswordSU").write("Password1234*");
-        clickOn("#pfConfirmPassword").write("Password1234*");
-        clickOn("#tfEmailSU").write(mail);
+        clickOn("#pfConfirmPasswordSU").write("Password1234*");
         clickOn("#btnCreateAccount");
         verifyThat("Error at reaching the server.", isVisible());
     }
