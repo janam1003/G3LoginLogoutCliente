@@ -57,7 +57,7 @@ public class SignUpController extends GenericController {
      * Text field for the user's password.
      */
     @FXML
-    private PasswordField pfPassword;
+    private PasswordField pfPasswordSU;
     /**
      * Text field for the user's password confrimation.
      */
@@ -211,10 +211,10 @@ public class SignUpController extends GenericController {
             LOGGER.info("Initializing SignUp Button");
 
             // We pass the value from the show password to the hidden one.
-            if (pfPassword.isVisible()) {
-                tfPasswordReveal.setText(pfPassword.getText());
+            if (pfPasswordSU.isVisible()) {
+                tfPasswordReveal.setText(pfPasswordSU.getText());
             } else if (tfPasswordReveal.isVisible()) {
-                pfPassword.setText(tfPasswordReveal.getText());
+                pfPasswordSU.setText(tfPasswordReveal.getText());
             }
 
             if (pfConfirmPassword.isVisible()) {
@@ -236,7 +236,7 @@ public class SignUpController extends GenericController {
                         | validateField(tfPhone, phonePattern, lblPhone)
                         | validateField(tfZip, zipPattern, lblZip)
                         | validateField(tfAddress, addressPattern, lblAddress)
-                        | validateField(pfPassword, passwordPattern, lblPassword);
+                        | validateField(pfPasswordSU, passwordPattern, lblPassword);
                 //We check if the content of the password and the confirm are the same
                 if (!tfPasswordReveal.getText().equals(tfConfirmPasswordReveal.getText())) {
                     lblConfirmPassword.setVisible(true);
@@ -257,7 +257,7 @@ public class SignUpController extends GenericController {
                     user.setPhone(tfPhone.getText());
                     user.setAddress(tfAddress.getText());
                     user.setZip(Integer.parseInt(tfZip.getText()));
-                    user.setPassword(pfPassword.getText());
+                    user.setPassword(pfPasswordSU.getText());
                     SigninSignup signinSignup = ClientFactory.getSigninSignup();
                     signinSignup.signUp(user);
                     //Show a confirmation message showing that the user hs been properli created
@@ -320,7 +320,7 @@ public class SignUpController extends GenericController {
 
         LOGGER.info("Toggle Password Visibility1.");
 
-        showPassword(faEye1, pfPassword, tfPasswordReveal);
+        showPassword(faEye1, pfPasswordSU, tfPasswordReveal);
 
     }
 

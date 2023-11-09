@@ -55,7 +55,7 @@
                         <Insets left="40.0" right="10.0" />
                     </padding>
                 </TextField>
-                <PasswordField fx:id="pfPassword" layoutX="2.0" layoutY="337.0" prefHeight="40.0" prefWidth="420.0" promptText="Password">
+                <PasswordField fx:id="pfPasswordSU" layoutX="2.0" layoutY="337.0" prefHeight="40.0" prefWidth="420.0" promptText="Password">
                     <font>
                         <Font size="18.0" />
                     </font>
