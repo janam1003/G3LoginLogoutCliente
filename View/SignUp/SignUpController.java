@@ -5,6 +5,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
+import javax.security.auth.login.CredentialException;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -255,6 +256,7 @@ public class SignUpController extends GenericController {
                     User user = new User();
                     user.setName(tfNameSurname.getText());
                     user.setMail(tfEmail.getText());
+					user.setPhone(tfPhone.getText());
                     user.setAddress(tfAddress.getText());
                     user.setZip(Integer.parseInt(tfZip.getText()));
                     user.setPassword(pfPassword.getText());
@@ -358,41 +360,4 @@ public class SignUpController extends GenericController {
         alert.setContentText("You can now log in with your new account.");
         alert.showAndWait();
     }
-
-    /**
-     * Handles the action when the user attempts to exit the application or
-     * view.
-     *
-     * @param event The event triggered when the exit action is invoked.
-     */
-    public void handleOnActionExit(Event event) {
-
-        try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Are you sure you want to exit?", ButtonType.OK, ButtonType.CANCEL);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("This Window will be closed");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-
-                stage.close();
-
-                LOGGER.info("SignUP Window Exit");
-
-            } else {
-
-                event.consume();
-            }
-
-        } catch (Exception e) {
-
-            String errorMsg = "Error exiting application:" + e.getMessage();
-
-            this.showErrorAlert(errorMsg);
-
-            LOGGER.log(Level.SEVERE, errorMsg);
-        }
-    }
-
 }
