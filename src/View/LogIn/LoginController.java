@@ -81,6 +81,7 @@ public class LoginController extends GenericController {
 
         try {
 
+            // Logger
             LOGGER.info("Initializing Login stage.");
 
             // We create a new scene
@@ -119,6 +120,9 @@ public class LoginController extends GenericController {
 
         } catch (Exception e) {
 
+            // Logger
+            LOGGER.severe("Unable to Initialize Login window: " + e.getMessage());
+
             this.showErrorAlert(e.getMessage());
 
         }
@@ -133,6 +137,9 @@ public class LoginController extends GenericController {
     private void handleLogInButtonAction(ActionEvent event) {
 
         try {
+
+            // Logger
+            LOGGER.info("Initializing login button action.");
 
             // If the password is revealed, we get it text to set it into password field
             if (tfPasswordReveal.isVisible()) {
@@ -183,25 +190,36 @@ public class LoginController extends GenericController {
             controller.initStage(root, userLogged);
 
         } catch (IncorrectLoginException e) {
-            
+
+            // Logger
+            LOGGER.severe("Incorrect Login Exception. " + e.getMessage());
+
             this.showErrorAlert(e.getMessage());
-            
+
         } catch (ServerErrorException e) {
-            
+
+            // Logger
+            LOGGER.severe("Server Error Exception. " + e.getMessage());
             this.showErrorAlert(e.getMessage());
-            
+
         } catch (MaxUserException e) {
-            
+
+            // Logger
+            LOGGER.severe("Max User Exception. " + e.getMessage());
             this.showErrorAlert(e.getMessage());
-            
+
         } catch (UnknownTypeException e) {
-            
+
+            // Logger
+            LOGGER.severe("UnknownType Exception. " + e.getMessage());
             this.showErrorAlert(e.getMessage());
-            
+
         } catch (Exception e) {
-            
+
+            // Logger
+            LOGGER.severe("Exception. " + e.getMessage());
             this.showErrorAlert(e.getMessage());
-            
+
         }
     }
 
@@ -214,6 +232,9 @@ public class LoginController extends GenericController {
     private void handleSignUpHyperlinkAction(ActionEvent event) {
 
         try {
+
+            // Logger
+            LOGGER.info("Initializing SignUp Hypwrlink Action.");
 
             // We load the SignUp view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/SignUp/SignUp.fxml"));
@@ -232,6 +253,8 @@ public class LoginController extends GenericController {
 
         } catch (Exception e) {
 
+            // Logger
+            LOGGER.severe("Exception: " + e.getMessage());
             this.showErrorAlert(e.getMessage());
 
         }
@@ -244,6 +267,10 @@ public class LoginController extends GenericController {
      */
     @FXML
     private void handleEyeButtonAction(ActionEvent event) {
+
+        // Logger
+        LOGGER.info("Initializing handle on eye button action.");
+
         // We call the showPassword method
         showPassword(btEye, pfPassword, tfPasswordReveal);
     }

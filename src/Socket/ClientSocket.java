@@ -19,6 +19,15 @@ import java.util.logging.Logger;
  */
 public class ClientSocket {
 
+    // socket object
+    private Socket skCliente;
+
+    // inputStream object
+    private ObjectInputStream inputStream = null;
+
+    // outputStream object
+    private ObjectOutputStream outputStream = null;
+
     // Load configuration properties from a file named "Config.config"
     private final ResourceBundle configFile = ResourceBundle.getBundle("Config.config");
 
@@ -48,26 +57,27 @@ public class ClientSocket {
 
         try {
 
+            // Logger
             LOGGER.info("Sending a message to a server to receive a response.");
 
             // Create a client socket connection to the specified host and port
-            Socket skCliente = new Socket();
+            skCliente = new Socket();
 
             // Gives timeout if cant find the server
             skCliente.connect(new InetSocketAddress(HOST, PUERTO), TIMEOUT);
 
             // Get the output stream of the socket for sending data
-            ObjectOutputStream os = new ObjectOutputStream(skCliente.getOutputStream());
-            ObjectInputStream ois = new ObjectInputStream(skCliente.getInputStream());
+            outputStream = new ObjectOutputStream(skCliente.getOutputStream());
+            inputStream = new ObjectInputStream(skCliente.getInputStream());
 
             // Write the provided 'mesg' object to the output stream
-            os.writeObject(mesg);
+            outputStream.writeObject(mesg);
 
             /**
              * Receive a message from the server Get the input stream of the
              * socket for receiving data
              */
-            msgReceive = (Message) ois.readObject();
+            msgReceive = (Message) inputStream.readObject();
 
             // Return the received message 
             return msgReceive;
@@ -82,8 +92,31 @@ public class ClientSocket {
 
             LOGGER.severe("Error: " + e.getMessage());
 
-        }
+        } finally {
 
-        return msgReceive;
+            try {
+
+                // Close the output stream
+                outputStream.close();
+
+                // Close the input stream
+                inputStream.close();
+
+                // Close the client socket
+                skCliente.close();
+
+            } catch (IOException ex) {
+
+                /**
+                 * Handle any exceptions that may occur during the closing of
+                 * streams or the socket.
+                 */
+                LOGGER.severe("Error: " + ex.getMessage());
+
+                throw new ServerErrorException("Error while closing the socket and streams. " + ex.getMessage());
+            }
+
+            return msgReceive;
+        }
     }
 }

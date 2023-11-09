@@ -84,6 +84,9 @@ public class GenericController {
      */
     protected void showPassword(FontAwesomeIcon Eye, PasswordField pfPassword, TextField tfPasswordReveal) {
 
+        // Logger
+        LOGGER.info("Initializing show password.");
+
         // We check if the password field is visible or not.
         Boolean passwordVisible = pfPassword.isVisible();
 
@@ -117,6 +120,9 @@ public class GenericController {
     public void handleOnActionExit(Event event) {
 
         try {
+
+            // Logger
+            LOGGER.info("Initializing handle on Exit action.");
 
             // We show an alert to confirm the exit
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Are you sure you want to exit?", ButtonType.OK,

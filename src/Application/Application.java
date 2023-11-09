@@ -28,7 +28,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        LOGGER.info("Initializing SignIn Window.\n");
+        LOGGER.info("Initializing start method to open signin window.");
 
         // Load the FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/LogIn/Login.fxml"));

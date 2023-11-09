@@ -43,6 +43,7 @@ public class LoggedController extends GenericController {
 
         try {
 
+            // Logger
             LOGGER.info("Initializing Logged stage.");
 
             // Set a title to the window
@@ -71,6 +72,9 @@ public class LoggedController extends GenericController {
 
         } catch (Exception e) {
 
+            // severe Logger
+            LOGGER.severe("Error while initializing logged window. " + e.getMessage());
+
             this.showErrorAlert(e.getMessage());
 
         }
@@ -85,6 +89,9 @@ public class LoggedController extends GenericController {
     private void handleLogOutButtonAction(ActionEvent event) {
 
         try {
+
+            // logger
+            LOGGER.info("Initializing Logout Button.");
 
             // We show an alert to confirm the log out
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to log out?", ButtonType.NO, ButtonType.YES);
@@ -112,6 +119,9 @@ public class LoggedController extends GenericController {
             }
 
         } catch (Exception e) {
+
+            // Logger
+            LOGGER.severe("Error while clicking in LogOut Button. " + e.getMessage());
 
             this.showErrorAlert(e.getMessage());
 

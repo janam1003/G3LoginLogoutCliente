@@ -3,6 +3,7 @@ package View.SignUp;
 import Classes.SigninSignup;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.util.regex.Pattern;
+import javax.security.auth.login.CredentialException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -17,7 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import View.Generic.GenericController;
 import Classes.User;
-import Exceptions.CredentialException;
 import Exceptions.EmailAlreadyExistException;
 import Exceptions.ServerErrorException;
 import Exceptions.UnknownTypeException;
@@ -33,133 +33,111 @@ public class SignUpController extends GenericController {
 
     @FXML
     private TextField tfNameSurname;
-
     /**
      * Text field for the user's name and surname.
      */
     @FXML
     private TextField tfEmail;
-
     /**
      * Text field for the user's telephone number.
      */
     @FXML
     private TextField tfPhone;
-
     /**
      * Text field for the user's zip.
      */
     @FXML
     private TextField tfZip;
-
     /**
      * Text field for the user's address.
      */
     @FXML
     private TextField tfAddress;
-
     /**
      * Text field for the user's password.
      */
     @FXML
     private PasswordField pfPassword;
-
     /**
      * Text field for the user's password confrimation.
      */
     @FXML
     private PasswordField pfConfirmPassword;
-
     /**
      * Button to create and account.
      */
     @FXML
     private Button btnCreateAccount;
-
     /**
      * Button to cancel.
      */
     @FXML
     private Button btnCancel;
-
     /**
      * Button to show the password of the pfPassword.
      */
     @FXML
     private Button btnEye1;
-
     /**
      * Button to show the password of the pfConfirmPassword.
      */
     @FXML
     private Button btnEye2;
-
     /**
      * Icon located on the btnEye1.
      */
     @FXML
     private FontAwesomeIcon faEye1;
-
     /**
      * Icon located on the btnEye2.
      */
     @FXML
     private FontAwesomeIcon faEye2;
-
     /**
      * TextField that show's the revealed pfPassword.
      */
     @FXML
     private TextField tfPasswordReveal;
-
     /**
      * TextField that show's the revealed pfConfirmPassword.
      */
     @FXML
     private TextField tfConfirmPasswordReveal;
-
     /**
      * Label that show's Error on the tfNameSurname.
      */
     @FXML
     private Label lblName;
-
     /**
      * Label that show's Error on the tfAddress.
      */
     @FXML
     private Label lblAddress;
-
     /**
      * Label that show's Error on the tfZip.
      */
     @FXML
     private Label lblZip;
-
     /**
      * Label that show's Error on the tfPhone.
      */
     @FXML
     private Label lblPhone;
-
     /**
      * Label that show's Error on the tfEmail.
      */
     @FXML
     private Label lblEmail;
-
     /**
      * Label that show's Error on the pfPassword.
      */
     @FXML
     private Label lblPassword;
-
     /**
      * Label that show's Error on the pfConfirmPassword.
      */
     @FXML
     private Label lblConfirmPassword;
-
     /**
      * Label that show's Error if the email written on the tfEmail is alraedy in
      * use.
@@ -169,7 +147,7 @@ public class SignUpController extends GenericController {
 
     /**
      *
-     * @param root
+     * @param root signup init stage
      */
     public void initStage(Parent root) {
 
@@ -201,25 +179,19 @@ public class SignUpController extends GenericController {
 
         //Define the action when the window is closed
         stage.setOnCloseRequest(this::handleOnActionExit);
-
         //Define that the views size can't be cahnged
         stage.setResizable(false);
-
         //Define that the view is modal
         stage.initModality(Modality.APPLICATION_MODAL);
-
         //Defines the title to SignUp
         stage.setTitle("SignUp");
-
         //Adds the picture to the view
         stage.getIcons().add(new Image("Resources/logo.png"));
-
         //Sets the new scene
         stage.setScene(scene);
 
-        // Focus on the Name Surbname Textfield.
+        // RequestFocus on NameSurname Textfield
         tfNameSurname.requestFocus();
-
         //The stage is shown
         stage.show();
     }
@@ -236,38 +208,28 @@ public class SignUpController extends GenericController {
 
         try {
 
+            LOGGER.info("Initializing SignUp Button");
+
             // We pass the value from the show password to the hidden one.
             if (pfPassword.isVisible()) {
-
                 tfPasswordReveal.setText(pfPassword.getText());
-
             } else if (tfPasswordReveal.isVisible()) {
-
                 pfPassword.setText(tfPasswordReveal.getText());
-
             }
 
             if (pfConfirmPassword.isVisible()) {
-
                 tfConfirmPasswordReveal.setText(pfConfirmPassword.getText());
-
             } else if (tfConfirmPasswordReveal.isVisible()) {
-
                 pfConfirmPassword.setText(tfConfirmPasswordReveal.getText());
             }
 
             //We check if there is an empty field 
             if (isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
-
                 //Throws an exception if something is empty
                 throw new CredentialException("Complete every field");
-
             } else if (isAnyTextFieldTooLong(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
-
                 throw new CredentialException("One field or more are too long");
-
             } else {
-
                 //We check if there is any error on the text fields
                 errorExists = validateField(tfNameSurname, namePattern, lblName)
                         | validateField(tfEmail, mailPattern, lblEmail)
@@ -275,71 +237,59 @@ public class SignUpController extends GenericController {
                         | validateField(tfZip, zipPattern, lblZip)
                         | validateField(tfAddress, addressPattern, lblAddress)
                         | validateField(pfPassword, passwordPattern, lblPassword);
-
                 //We check if the content of the password and the confirm are the same
                 if (!tfPasswordReveal.getText().equals(tfConfirmPasswordReveal.getText())) {
-
                     lblConfirmPassword.setVisible(true);
-
                     errorExists = true;
-
                 } else {
-
                     lblConfirmPassword.setVisible(false);
                 }
 
                 //In case that there is an error we throw the CredentialException
                 if (errorExists) {
-
                     throw new CredentialException("Revise the values");
-                    //If there is no error it will start creating a user 
-
+                    //If there is no error it will start creating a user  
                 } else {
 
                     User user = new User();
-
                     user.setName(tfNameSurname.getText());
-
                     user.setMail(tfEmail.getText());
-
+                    user.setPhone(tfPhone.getText());
                     user.setAddress(tfAddress.getText());
-
                     user.setZip(Integer.parseInt(tfZip.getText()));
-
                     user.setPassword(pfPassword.getText());
-
                     SigninSignup signinSignup = ClientFactory.getSigninSignup();
-
                     signinSignup.signUp(user);
-
                     //Show a confirmation message showing that the user hs been properli created
                     showUserCreatedAlert();
-
                     // We close the stage
                     stage.close();
                 }
             }
-
         } catch (CredentialException e) {
 
+            LOGGER.severe("Credential Exception: " + e.getMessage());
             this.showErrorAlert(e.getMessage());
 
         } catch (EmailAlreadyExistException e) {
 
+            LOGGER.severe("Email already Exist Exception: " + e.getMessage());
             lblExist.setVisible(true);
 
         } catch (ServerErrorException e) {
 
+            LOGGER.severe("Server Exception: " + e.getMessage());
             this.showErrorAlert(e.getMessage());
 
         } catch (UnknownTypeException e) {
 
+            LOGGER.severe("UnknownType Exception: " + e.getMessage());
             this.showErrorAlert(e.getMessage());
 
         } catch (Exception e) {
 
+            LOGGER.severe("Exception: " + e.getMessage());
             this.showErrorAlert(e.getMessage());
-
         }
     }
 
@@ -353,6 +303,8 @@ public class SignUpController extends GenericController {
      * @return boolean Boolean defining if the field was properly written or not
      */
     private boolean validateField(TextField field, String pattern, Label label) {
+
+        LOGGER.info("Validating Fields.");
         Pattern p = Pattern.compile(pattern);
         boolean valid = p.matcher(field.getText()).matches();
         label.setVisible(!valid);
@@ -366,6 +318,8 @@ public class SignUpController extends GenericController {
      */
     private void togglePasswordVisibility1(ActionEvent event) {
 
+        LOGGER.info("Toggle Password Visibility1.");
+
         showPassword(faEye1, pfPassword, tfPasswordReveal);
 
     }
@@ -376,6 +330,8 @@ public class SignUpController extends GenericController {
      * @param event An action event.
      */
     private void togglePasswordVisibility2(ActionEvent event) {
+
+        LOGGER.info("Toggle Password Visibility2.");
 
         showPassword(faEye2, pfConfirmPassword, tfConfirmPasswordReveal);
 
@@ -388,6 +344,8 @@ public class SignUpController extends GenericController {
      * @return True if any of the TextFields is empty, false otherwise.
      */
     private boolean isAnyTextFieldEmpty(TextField... textFields) {
+
+        LOGGER.info("Is Any TextFields are Empty.");
         for (TextField x : textFields) {
             if (x.getText().isEmpty()) {
                 return true;
@@ -403,6 +361,7 @@ public class SignUpController extends GenericController {
      * @return True if any of the TextFields is too long, false otherwise.
      */
     private boolean isAnyTextFieldTooLong(TextField... textFields) {
+        LOGGER.info("Is Any TextFields are Too Long.");
         for (TextField x : textFields) {
             if (x.getText().length() > MAX_LENGTH) {
                 return true;
@@ -416,11 +375,11 @@ public class SignUpController extends GenericController {
      * been successfully created.
      */
     public void showUserCreatedAlert() {
+        LOGGER.info("Shows users are created alerts.");
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("User Created");
         alert.setHeaderText("User successfully created.");
         alert.setContentText("You can now log in with your new account.");
         alert.showAndWait();
     }
-
 }

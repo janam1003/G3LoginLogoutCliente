@@ -49,7 +49,7 @@ public class ClientImplementation implements SigninSignup {
 
         try {
 
-            LOGGER.info("Attempting to signIn the user.\n");
+            LOGGER.info("Attempting to signIn the user.");
 
             // Create a Message object and set its values 
             message = new Message();
@@ -122,7 +122,7 @@ public class ClientImplementation implements SigninSignup {
 
         try {
 
-            LOGGER.info("Attempting to signUp a new user.\n");
+            LOGGER.info("Attempting to signUp a new user.");
 
             // Create a Message object and set its values
             message = new Message();
