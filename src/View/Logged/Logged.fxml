@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Logged.LoggedController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Logged.LoggedController">
    <children>
       <AnchorPane prefHeight="406.0" prefWidth="597.0" style="-fx-background-color: #6666ff;">
          <children>
-            <Button fx:id="btnLogOut1" layoutX="166.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleLogOutButtonAction" prefHeight="67.0" prefWidth="229.0" style="-fx-background-radius: 10;" text="Log Out" textFill="#3f61bf">
+            <Button fx:id="btnLogOut" layoutX="166.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleLogOutButtonAction" prefHeight="67.0" prefWidth="229.0" style="-fx-background-radius: 10;" text="Log Out" textFill="#3f61bf">
                <font>
                   <Font name="Verdana Pro Black" size="22.0" />
                </font>
@@ -28,7 +28,7 @@
             </Label>
             <ImageView fitHeight="245.0" fitWidth="253.0" layoutX="385.0" layoutY="105.0">
                <image>
-                  <Image url="@../../Resources/logged.png"/>
+                  <Image url="@../../Resources/logged.png" />
                </image>
             </ImageView>
          </children>

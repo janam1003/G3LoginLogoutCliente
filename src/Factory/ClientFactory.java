@@ -2,6 +2,7 @@ package Factory;
 
 import Classes.SigninSignup;
 import Implementation.ClientImplementation;
+import java.util.logging.Logger;
 
 /**
  * The `ClientFactory` class is responsible for creating and providing instances
@@ -15,12 +16,20 @@ public class ClientFactory {
     private static SigninSignup data;
 
     /**
+     * Logger object used to log messages for the application.
+     */
+    private static final Logger LOGGER = Logger.getLogger(ClientFactory.class.getName());
+
+    /**
      * Get an instance of the SigninSignup interface. If an instance does not
      * exist, it is created.
      *
      * @return An instance of the SigninSignup interface.
      */
     public static SigninSignup getSigninSignup() {
+
+        // Logger
+        LOGGER.info("Initializing ClientFactory.");
 
         // Check if the data instance is not previously loaded.
         if (data == null) {
