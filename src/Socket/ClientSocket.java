@@ -53,6 +53,7 @@ public class ClientSocket {
 	 * @param mesg The message to be sent to the server.
 	 * @return The received message from the server.
 	 * @throws IOException If an I/O error occurs during socket communication.
+         * @throws ServerErrorException If an I/O error occurs during connection.
 	 */
 	public Message sendRecieve(Message mesg) throws IOException, ServerErrorException {
 
