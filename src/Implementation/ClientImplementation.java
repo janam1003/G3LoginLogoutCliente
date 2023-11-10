@@ -11,7 +11,6 @@ import Exceptions.ServerErrorException;
 import Exceptions.UnknownTypeException;
 import Socket.ClientSocket;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -49,60 +48,46 @@ public class ClientImplementation implements SigninSignup {
 	public User SignIn(User user)
 			throws IncorrectLoginException, ServerErrorException, UnknownTypeException, MaxUserException {
 
-		try {
+		LOGGER.info("Attempting to signIn the user.");
 
-			LOGGER.info("Attempting to signIn the user.");
+		// Create a Message object and set its values
+		message = new Message();
 
-			// Create a Message object and set its values
-			message = new Message();
+		message.setUser(user);
 
-			message.setUser(user);
+		message.setType(MessageType.LOGIN_REQUEST);
 
-			message.setType(MessageType.LOGIN_REQUEST);
+		// Send the message and receive a response
+		Message returnMessage = clientSocket.sendRecieve(message);
 
-			// Send the message and receive a response
-			Message returnMessage = clientSocket.sendRecieve(message);
+		// Analyze the response message
+		switch (returnMessage.getType()) {
 
-			// Analyze the response message
-			switch (returnMessage.getType()) {
+			case SERVER_ERROR_RESPONSE:
 
-				case SERVER_ERROR_RESPONSE:
+				throw new ServerErrorException("Error at reaching the server.");
 
-					throw new ServerErrorException("Error at reaching the server.");
+			case INCORRECT_LOGIN_RESPONSE:
 
-				case INCORRECT_LOGIN_RESPONSE:
+				throw new IncorrectLoginException("Email or password is incorrect or user does not exist.");
 
-					throw new IncorrectLoginException("Email or password is incorrect or user does not exist.");
+			case MAX_USER_EXCEPTION:
 
-				case MAX_USER_EXCEPTION:
+				throw new MaxUserException("Server can not handle more users.");
 
-					throw new MaxUserException("Server can not handle more users.");
+			case OKAY_RESPONSE:
 
-				case OKAY_RESPONSE:
+				user = returnMessage.getUser();
 
-					user = returnMessage.getUser();
+				break;
 
-					break;
+			default:
 
-				default:
+				throw new UnknownTypeException("Unknown type of message.");
 
-					throw new UnknownTypeException("Unknown type of message.");
-
-			}
-
-			return user;
-
-		} catch (ServerErrorException e) {
-
-			LOGGER.severe("A server error occurred in SIGNIN: " + e.getMessage());
-
-			throw e;
-
-		} catch (Exception ex) {
-
-			LOGGER.severe("An error occurred in SIGNIN: " + ex.getMessage());
-			throw new ServerErrorException("Error " + ex.getMessage());
 		}
+
+		return user;
 
 	}
 
@@ -121,59 +106,46 @@ public class ClientImplementation implements SigninSignup {
 	public User signUp(User user)
 			throws ServerErrorException, EmailAlreadyExistException, UnknownTypeException, MaxUserException {
 
-		try {
+		LOGGER.info("Attempting to signUp a new user.");
 
-			LOGGER.info("Attempting to signUp a new user.");
+		// Create a Message object and set its values
+		message = new Message();
 
-			// Create a Message object and set its values
-			message = new Message();
+		message.setUser(user);
 
-			message.setUser(user);
+		message.setType(MessageType.SIGNUP_REQUEST);
 
-			message.setType(MessageType.SIGNUP_REQUEST);
+		// Send the message and receive a response
+		Message returnMessage = clientSocket.sendRecieve(message);
 
-			// Send the message and receive a response
-			Message returnMessage = clientSocket.sendRecieve(message);
+		// Analyze the response message
+		switch (returnMessage.getType()) {
 
-			// Analyze the response message
-			switch (returnMessage.getType()) {
+			case SERVER_ERROR_RESPONSE:
 
-				case SERVER_ERROR_RESPONSE:
+				throw new ServerErrorException("Error at reaching the server.");
 
-					throw new ServerErrorException("Error at reaching the server.");
+			case EMAIL_ALREADY_EXIST_RESPONSE:
 
-				case EMAIL_ALREADY_EXIST_RESPONSE:
+				throw new EmailAlreadyExistException("Email already exists.");
 
-					throw new EmailAlreadyExistException("Email already exists.");
+			case MAX_USER_EXCEPTION:
 
-				case MAX_USER_EXCEPTION:
+				throw new MaxUserException("Server can not handle more users.");
 
-					throw new MaxUserException("Server can not handle more users.");
+			case OKAY_RESPONSE:
 
-				case OKAY_RESPONSE:
+				user = returnMessage.getUser();
 
-					user = returnMessage.getUser();
+				break;
 
-					break;
+			default:
 
-				default:
+				throw new UnknownTypeException("Unknown type of message.");
+		}
 
-					throw new UnknownTypeException("Unknown type of message.");
-
-			}
-
-			return user;
-
-		} catch (ServerErrorException e) {
-
-			LOGGER.severe("A server error occurred in SignUp: " + e.getMessage());
-
-			throw e;
-
-		} catch (IOException ex) { 
-                    LOGGER.severe("An error occurred in SignUp: " + ex.getMessage());
-                    throw new ServerErrorException("Error " + ex.getMessage());
-                }
+		return user;
+    
 	}
 
 }

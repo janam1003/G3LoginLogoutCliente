@@ -23,7 +23,7 @@ public class Application extends javafx.application.Application {
      * Open the login window
      *
      * @param stage Stage where the scene will be projected
-     * @throws Exception
+     * @throws Exception all exceptions
      */
     @Override
     public void start(Stage stage) throws Exception {

@@ -52,9 +52,9 @@ public class ClientSocket {
 	 *
 	 * @param mesg The message to be sent to the server.
 	 * @return The received message from the server.
-	 * @throws IOException If an I/O error occurs during socket communication.
+	 * @throws ServerErrorException If an error occurs during socket communication.
 	 */
-	public Message sendRecieve(Message mesg) throws IOException, ServerErrorException {
+	public Message sendRecieve(Message mesg) throws ServerErrorException {
 
 		try {
 
@@ -86,6 +86,11 @@ public class ClientSocket {
 
 			LOGGER.severe("Error: Connection timeout when reaching the server." + e.getMessage());
 			throw new ServerErrorException("Error at reaching the server.");
+
+		} catch (IOException e) {
+
+			LOGGER.severe("Error failed or interrupted I/O: " + e.getMessage());
+			throw new ServerErrorException("Error with I/O, " + e.getMessage());
 
 		} catch (Exception e) {
 
