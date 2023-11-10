@@ -10,7 +10,6 @@ import Exceptions.MaxUserException;
 import Exceptions.ServerErrorException;
 import Exceptions.UnknownTypeException;
 import Socket.ClientSocket;
-
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -143,11 +142,10 @@ public class ClientImplementation implements SigninSignup {
 			default:
 
 				throw new UnknownTypeException("Unknown type of message.");
-
 		}
 
 		return user;
-
+    
 	}
 
 }

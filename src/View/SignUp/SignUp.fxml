@@ -55,7 +55,7 @@
                         <Insets left="40.0" right="10.0" />
                     </padding>
                 </TextField>
-                <PasswordField fx:id="pfPassword" layoutX="2.0" layoutY="337.0" prefHeight="40.0" prefWidth="420.0" promptText="Password">
+                <PasswordField fx:id="pfPasswordSU" layoutX="2.0" layoutY="337.0" prefHeight="40.0" prefWidth="420.0" promptText="Password">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -66,7 +66,7 @@
                   <Tooltip text="The password must meet the following minimum requirements:&#10;- 8 characters&#10;- 1 capital letter&#10;- 1 special character" />
                </tooltip>
                 </PasswordField>
-                <PasswordField fx:id="pfConfirmPassword" layoutY="408.0" prefHeight="40.0" prefWidth="420.0" promptText="Please Confirm Your Password">
+                <PasswordField fx:id="pfConfirmPasswordSU" layoutY="408.0" prefHeight="40.0" prefWidth="420.0" promptText="Please Confirm Your Password">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -116,7 +116,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <TextField fx:id="tfPasswordReveal" layoutY="337.0" prefHeight="40.0" prefWidth="375.0">
+            <TextField fx:id="tfPasswordRevealSU" layoutY="337.0" prefHeight="40.0" prefWidth="375.0">
                <font>
                   <Font size="18.0" />
                </font>
@@ -124,7 +124,7 @@
                   <Insets left="40.0" right="40.0" />
                </padding>
             </TextField>
-            <TextField fx:id="tfConfirmPasswordReveal" layoutY="408.0" prefHeight="39.0" prefWidth="375.0">
+            <TextField fx:id="tfConfirmPasswordRevealSU" layoutY="408.0" prefHeight="39.0" prefWidth="375.0">
                <font>
                   <Font size="18.0" />
                </font>

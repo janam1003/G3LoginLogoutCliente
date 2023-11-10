@@ -57,12 +57,12 @@ public class SignUpController extends GenericController {
      * Text field for the user's password.
      */
     @FXML
-    private PasswordField pfPassword;
+    private PasswordField pfPasswordSU;
     /**
      * Text field for the user's password confrimation.
      */
     @FXML
-    private PasswordField pfConfirmPassword;
+    private PasswordField pfConfirmPasswordSU;
     /**
      * Button to create and account.
      */
@@ -97,12 +97,12 @@ public class SignUpController extends GenericController {
      * TextField that show's the revealed pfPassword.
      */
     @FXML
-    private TextField tfPasswordReveal;
+    private TextField tfPasswordRevealSU;
     /**
      * TextField that show's the revealed pfConfirmPassword.
      */
     @FXML
-    private TextField tfConfirmPasswordReveal;
+    private TextField tfConfirmPasswordRevealSU;
     /**
      * Label that show's Error on the tfNameSurname.
      */
@@ -152,8 +152,8 @@ public class SignUpController extends GenericController {
     public void initStage(Parent root) {
 
         //Setting every field in charge of showing error not visible
-        tfPasswordReveal.setVisible(false);
-        tfConfirmPasswordReveal.setVisible(false);
+        tfPasswordRevealSU.setVisible(false);
+        tfConfirmPasswordRevealSU.setVisible(false);
         lblName.setVisible(false);
         lblAddress.setVisible(false);
         lblZip.setVisible(false);
@@ -211,23 +211,23 @@ public class SignUpController extends GenericController {
             LOGGER.info("Initializing SignUp Button");
 
             // We pass the value from the show password to the hidden one.
-            if (pfPassword.isVisible()) {
-                tfPasswordReveal.setText(pfPassword.getText());
-            } else if (tfPasswordReveal.isVisible()) {
-                pfPassword.setText(tfPasswordReveal.getText());
+            if (pfPasswordSU.isVisible()) {
+                tfPasswordRevealSU.setText(pfPasswordSU.getText());
+            } else if (tfPasswordRevealSU.isVisible()) {
+                pfPasswordSU.setText(tfPasswordRevealSU.getText());
             }
 
-            if (pfConfirmPassword.isVisible()) {
-                tfConfirmPasswordReveal.setText(pfConfirmPassword.getText());
-            } else if (tfConfirmPasswordReveal.isVisible()) {
-                pfConfirmPassword.setText(tfConfirmPasswordReveal.getText());
+            if (pfConfirmPasswordSU.isVisible()) {
+                tfConfirmPasswordRevealSU.setText(pfConfirmPasswordSU.getText());
+            } else if (tfConfirmPasswordRevealSU.isVisible()) {
+                pfConfirmPasswordSU.setText(tfConfirmPasswordRevealSU.getText());
             }
 
             //We check if there is an empty field 
-            if (isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
+            if (isAnyTextFieldEmpty(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordRevealSU, tfConfirmPasswordRevealSU)) {
                 //Throws an exception if something is empty
                 throw new CredentialException("Complete every field");
-            } else if (isAnyTextFieldTooLong(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordReveal, tfConfirmPasswordReveal)) {
+            } else if (isAnyTextFieldTooLong(tfNameSurname, tfEmail, tfPhone, tfZip, tfAddress, tfPasswordRevealSU, tfConfirmPasswordRevealSU)) {
                 throw new CredentialException("One field or more are too long");
             } else {
                 //We check if there is any error on the text fields
@@ -236,9 +236,9 @@ public class SignUpController extends GenericController {
                         | validateField(tfPhone, phonePattern, lblPhone)
                         | validateField(tfZip, zipPattern, lblZip)
                         | validateField(tfAddress, addressPattern, lblAddress)
-                        | validateField(pfPassword, passwordPattern, lblPassword);
+                        | validateField(pfPasswordSU, passwordPattern, lblPassword);
                 //We check if the content of the password and the confirm are the same
-                if (!tfPasswordReveal.getText().equals(tfConfirmPasswordReveal.getText())) {
+                if (!tfPasswordRevealSU.getText().equals(tfConfirmPasswordRevealSU.getText())) {
                     lblConfirmPassword.setVisible(true);
                     errorExists = true;
                 } else {
@@ -257,7 +257,7 @@ public class SignUpController extends GenericController {
                     user.setPhone(tfPhone.getText());
                     user.setAddress(tfAddress.getText());
                     user.setZip(Integer.parseInt(tfZip.getText()));
-                    user.setPassword(pfPassword.getText());
+                    user.setPassword(pfPasswordSU.getText());
                     SigninSignup signinSignup = ClientFactory.getSigninSignup();
                     signinSignup.signUp(user);
                     //Show a confirmation message showing that the user hs been properli created
@@ -320,7 +320,7 @@ public class SignUpController extends GenericController {
 
         LOGGER.info("Toggle Password Visibility1.");
 
-        showPassword(faEye1, pfPassword, tfPasswordReveal);
+        showPassword(faEye1, pfPasswordSU, tfPasswordRevealSU);
 
     }
 
@@ -333,7 +333,7 @@ public class SignUpController extends GenericController {
 
         LOGGER.info("Toggle Password Visibility2.");
 
-        showPassword(faEye2, pfConfirmPassword, tfConfirmPasswordReveal);
+        showPassword(faEye2, pfConfirmPasswordSU, tfConfirmPasswordRevealSU);
 
     }
 
