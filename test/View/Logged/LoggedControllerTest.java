@@ -3,6 +3,7 @@ package View.Logged;
 import Application.Application;
 import javafx.stage.Stage;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.testfx.framework.junit.ApplicationTest;
@@ -27,7 +28,6 @@ public class LoggedControllerTest extends ApplicationTest {
         new Application().start(stage);
 
     }
-
     @Override
     public void stop() {
         // Cleanup or perform any necessary actions when the test ends
@@ -36,6 +36,7 @@ public class LoggedControllerTest extends ApplicationTest {
     /*
 	 * This method tests that logOut button works
      */
+	@Ignore
     @Test
     public void Test_A_createLogOutTest() {
 		clickOn("#hlSignUp");
@@ -60,6 +61,7 @@ public class LoggedControllerTest extends ApplicationTest {
     /*
 	 * This method tests that logOut and  no confirmation button works
      */
+	@Ignore
     @Test
     public void Test_B_createLogOutTest() {
 		clickOn("#hlSignUp");

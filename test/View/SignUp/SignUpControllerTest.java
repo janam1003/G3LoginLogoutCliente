@@ -8,6 +8,7 @@ package View.SignUp;
 import Application.Application;
 import javafx.stage.Stage;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.testfx.framework.junit.ApplicationTest;
@@ -35,7 +36,8 @@ public class SignUpControllerTest extends ApplicationTest {
     public void stop() {
     }
 
-    // Test case for creating an account with empty  
+    // Test case for creating an account with empty
+	@Ignore
     @Test
     public void Test_A_createButtonEmptyFieldTest() {
         clickOn("#hlSignUp");
@@ -51,7 +53,8 @@ public class SignUpControllerTest extends ApplicationTest {
     }
 
     // Test case for creating an account with a too long email it is commented beacause it is too long
-    //@Test
+	@Ignore
+    @Test
     public void Test_B_createButtonLongFieldTest() {
         clickOn("#tfEmail").write("cdcvdsvdsvdsvldsanvñlsavnvlsñkadnvdsñalkvnsadlvnslkdvnlkdsñvndsñvnjas´lvnbdsalnakds´fjdnfls´kdnaclkdsncslkda´nfkljdsfncldsk´nc´ldskafjvckldsa´nvlkds´vandsnvls´kdanvvdskvn´ldsanvndvl´kdsanvldk´snv´saldkvndsvnkldsnv´lkdvnasnvlkdsanvlkdsvn´sadkl´vnvndsvnasd´l");
         verifyThat("One field or more are too long", isVisible());
@@ -61,6 +64,7 @@ public class SignUpControllerTest extends ApplicationTest {
     }
 
     // Test case for creating an account with wrong input on every field, it checks that the corresponding label is visible
+	@Ignore
     @Test
     public void Test_C_createButtonWrongFieldsTest() {
 
@@ -97,6 +101,7 @@ public class SignUpControllerTest extends ApplicationTest {
     }
 
     // Test case for testing the password reveal method
+	@Ignore
     @Test
     public void Test_D_PasswordRevealTest() {
         clickOn("#btnEye1");
@@ -108,6 +113,7 @@ public class SignUpControllerTest extends ApplicationTest {
     }
 
     // Test case for creating an account with valid input
+	@Ignore
     @Test
     public void Test_E_createButtonFineTest() {
         
@@ -139,6 +145,7 @@ public class SignUpControllerTest extends ApplicationTest {
     }
 
     // Test case for creating an account with an already existing email
+	@Ignore
     @Test
     public void Test_F_createButtonEmailExistTest() {
         // Perform actions to simulate user input

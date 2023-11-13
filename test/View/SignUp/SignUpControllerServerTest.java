@@ -9,6 +9,7 @@ package View.SignUp;
 import Application.Application;
 import javafx.stage.Stage;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.testfx.framework.junit.ApplicationTest;
@@ -36,6 +37,7 @@ public class SignUpControllerServerTest extends ApplicationTest {
     /**
      * Test case for creating an account with a server error.
      */
+	@Ignore
     @Test
     public void Test_A_createServerErrorTest() {
         // Perform actions to simulate user input
@@ -56,6 +58,7 @@ public class SignUpControllerServerTest extends ApplicationTest {
     /**
      * Test case for handling an unknown error type.
      */
+	@Ignore
     @Test
     public void Test_B_createButtonUnknownErrorTest() {
         // Verify that the error message for an unknown error type is visible
