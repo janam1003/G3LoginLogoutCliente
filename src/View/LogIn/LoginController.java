@@ -153,13 +153,6 @@ public class LoginController extends GenericController {
 				throw new Exception("Error, rellena todos los campos");
 			}
 
-			// If mail or/and password has more chars tham MAX_LENGTH we throw an exception
-			// if (tfMail.getText().length() > this.MAX_LENGTH ||
-			// pfPassword.getText().length() > this.MAX_LENGTH) {
-			// throw new LengthException("La longitud máxima del campo es de 255
-			// caracteres", );
-			// }
-
 			// Crompobamos la longitud del Mail, si es correcto se cambia a negro por si se
 			// habia cambiado a rojo
 			if (tfMail.getText().length() > this.MAX_LENGTH)
