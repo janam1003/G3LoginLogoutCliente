@@ -25,13 +25,13 @@ public class GenericController {
     /**
      * Maximum text fields length.
      */
-    protected final int MAX_LENGTH = 255;
+    protected final int MAX_LENGTH = 200;
 
     /**
      * Patterns for text fields validation.
      */
     protected String mailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-    protected String namePattern = "^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+){1,1}$";
+    protected String namePattern = "^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$";
     protected String phonePattern = "^\\+?\\d{1,4}?\\d{7,10}$";
     protected String zipPattern = "^\\d{5}(-\\d{4})?$";
     protected String addressPattern = "^(?:[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+|\\d+)(?:\\s(?:[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+|\\d+))+$";

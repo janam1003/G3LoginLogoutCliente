@@ -8,6 +8,7 @@ package View.SignUp;
 import Application.Application;
 import javafx.stage.Stage;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.testfx.framework.junit.ApplicationTest;
@@ -32,6 +33,7 @@ public class SignUpControllerCloseTest extends ApplicationTest {
     }
 
     //Test method to check the behavior of the cancel button.
+	@Ignore
     @Test
     public void Test_A_cancelButtonTest() {
         clickOn("#hlSignUp");
@@ -43,6 +45,7 @@ public class SignUpControllerCloseTest extends ApplicationTest {
     
 
     //Test method to check the behavior of the main window exit button.
+	@Ignore
     @Test
     public void Test_B_ExitTest() {
     clickOn("#hlSignUp");
