@@ -25,7 +25,7 @@ public class GenericController {
     /**
      * Maximum text fields length.
      */
-    protected final int MAX_LENGTH = 255;
+    protected final int MAX_LENGTH = 200;
 
     /**
      * Patterns for text fields validation.
