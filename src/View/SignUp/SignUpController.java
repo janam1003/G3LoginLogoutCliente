@@ -109,11 +109,6 @@ public class SignUpController extends GenericController {
     @FXML
     private Label lblName;
     /**
-     * Label that show's Error on the tfAddress.
-     */
-    @FXML
-    private Label lblAddress;
-    /**
      * Label that show's Error on the tfZip.
      */
     @FXML
@@ -155,7 +150,6 @@ public class SignUpController extends GenericController {
         tfPasswordRevealSU.setVisible(false);
         tfConfirmPasswordRevealSU.setVisible(false);
         lblName.setVisible(false);
-        lblAddress.setVisible(false);
         lblZip.setVisible(false);
         lblPhone.setVisible(false);
         lblEmail.setVisible(false);
@@ -235,7 +229,6 @@ public class SignUpController extends GenericController {
                         | validateField(tfEmail, mailPattern, lblEmail)
                         | validateField(tfPhone, phonePattern, lblPhone)
                         | validateField(tfZip, zipPattern, lblZip)
-                        | validateField(tfAddress, addressPattern, lblAddress)
                         | validateField(pfPasswordSU, passwordPattern, lblPassword);
                 //We check if the content of the password and the confirm are the same
                 if (!tfPasswordRevealSU.getText().equals(tfConfirmPasswordRevealSU.getText())) {
