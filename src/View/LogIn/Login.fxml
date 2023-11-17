@@ -48,7 +48,16 @@
 						<Font size="20.0" />
 					</font>
 				</PasswordField>
-
+				<Button fx:id="btnEye" layoutX="274.0" layoutY="200.0" mnemonicParsing="false"
+					onAction="#handleEyeButtonAction" prefHeight="49.0" prefWidth="49.0">
+					<font>
+						<Font name="Bernard MT Condensed" size="12.0" />
+					</font>
+					<graphic>
+						<FontAwesomeIcon fx:id="btEye" glyphName="EYE" size="2.5em" text=""
+							wrappingWidth="31.20001083612442" />
+					</graphic>
+				</Button>
 				<Button fx:id="btnLogIn" layoutY="341.0" mnemonicParsing="false"
 					onAction="#handleLogInButtonAction" prefHeight="50.0" prefWidth="319.0"
 					text="Login" textFill="#3f61bf">
@@ -93,16 +102,6 @@
 						<Font size="20.0" />
 					</font>
 				</TextField>
-				<Button fx:id="btnEye" layoutX="274.0" layoutY="200.0" mnemonicParsing="false"
-					onAction="#handleEyeButtonAction" prefHeight="49.0" prefWidth="49.0">
-					<font>
-						<Font name="Bernard MT Condensed" size="12.0" />
-					</font>
-					<graphic>
-						<FontAwesomeIcon fx:id="btEye" glyphName="EYE" size="2.5em" text=""
-							wrappingWidth="31.20001083612442" />
-					</graphic>
-				</Button>
 				<FontAwesomeIcon fill="#3f61bf" glyphName="LOCK" layoutX="15.0" layoutY="234.0"
 					size="2em" />
 
